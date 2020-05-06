@@ -31,8 +31,8 @@ navigatedll <- function (beta, x, missing, estimand, weights, alpha) {
 						(1 - missing) * log(1 + ps^0.5) - 2 * missing * log(1 + (1 - ps)^0.5)) * weights)
 		} else {
 		sum((ps^alpha * (missing / alpha - 
-											(1 - missing) * ps * hypergeo(1, 1 + alpha, 2 + alpha, ps) / (alpha + 1)) +
-				 (1 - ps)^alpha * (-missing * (1 - ps) / ps * hypergeo(1, 1, 1 - alpha, 1 / ps) + 
+											(1 - missing) * ps * hypergeo::hypergeo(1, 1 + alpha, 2 + alpha, ps) / (alpha + 1)) +
+				 (1 - ps)^alpha * (-missing * (1 - ps) / ps * hypergeo::hypergeo(1, 1, 1 - alpha, 1 / ps) + 
 				 		(1 - missing)) / alpha) * weights)
 		}
 	} else { # estimand == "ATT" or "MO"
@@ -52,7 +52,7 @@ navigatedll <- function (beta, x, missing, estimand, weights, alpha) {
 					 ps^0.5 / 0.5 + (1 - missing) * log(1 - ps^0.5) - (1 - missing) * log(1 + ps^0.5)) * weights)
 		} else {
 		sum((ps^alpha * (missing / alpha - 
-											(1 - missing) * ps * hypergeo(1, 1 + alpha, 2 + alpha, ps) / (alpha + 1))) * weights)
+											(1 - missing) * ps * hypergeo::hypergeo(1, 1 + alpha, 2 + alpha, ps) / (alpha + 1))) * weights)
 		}
 	}
 }
