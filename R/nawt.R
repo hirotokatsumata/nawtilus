@@ -15,7 +15,7 @@
 #'   can be coerced to that class): a symbolic description of the model to be 
 #'   fitted.
 #' @param outcome a character string specifying the name of outcome values
-#'   in \code{data}
+#'   in \code{data}.
 #' @param estimand a character string specifying a parameter of interest. Choose
 #'   "ATT" for the average treatment effect on treated estimation, "ATE" for the
 #'   average treatment effect estimation, or "MO" for the average outcomes 
@@ -45,6 +45,56 @@
 #' @param B the number of bootstrap replicates. Default is 2,000.
 #' @param clevel confidence level. Default is 0.95.
 #' @param message a logical value indicating whether messages are shown or not.
+#' @return \code{nawt} returns an object of class inheriting from "nawt". 
+#'
+#' The function summary (i.e., \code{\link{summary.nawt}}) can be used to obtain or print a 
+#'   summary of the results.
+#'
+#' An object of class "nawt" is a list containing the following components:
+#'
+#' \item{est}{the estimates of the parameter of interest.}
+#' \item{weights}{the estimated inverse probability weights.}
+#' \item{ps}{the estimated propensity scores. A matrix of two sets of the 
+#'   estimated propensity scores is returned when \code{estimand = "ATE"}.}
+#' \item{coefficients}{a named vector of coefficients. A matrix of two sets of
+#'   coefficients for two sets of propensity scores is returned when 
+#'   \code{estimand = "ATE"}.}
+#' \item{varcov}{the variance-covariance matrix of the coefficients and 
+#'   parameter of interest.}
+#' \item{converged}{logical. Was the algorithm judged to have converged?}
+#' \item{naive_weights}{the estimated inverse probability weights with the 
+#'   standard logistic regression for the propensity score estimation.}
+#' \item{naive_coef}{a named vector of coefficients with the standard logistic 
+#'   regression for the propensity score estimation.}
+#' \item{KLd}{the Kullback-Leibler divergence from the uniform base weights to 
+#'   the estimated inverse probability weights.}
+#' \item{scratio}{an optimal ratio of the covariate balancing weighting function
+#'   to the power weighting function in taking the weighted average weights for
+#'   the weighted score conditions when \code{method = "both"} and \code{twostep = TRUE}. 
+#'   A vector of length two for two propensity score estimation is returned when
+#'   \code{estimand = "ATE"}.}
+#' \item{estimand}{the parameter of interest specified.}
+#' \item{method}{the method specified.}
+#' \item{outcome}{the outcome vector.}
+#' \item{alpha}{alpha specified.}
+#' \item{formula}{formula specified.}
+#' \item{names.x}{names of the explanatory variables in propensity score 
+#'   estimation.}
+#' \item{prior.weights}{the weights initially supplied, a vector of 1s if none
+#'   were.}
+#' \item{treat}{the treatment vector. The missingness vector when the missing
+#' outcome cases.}
+#' \item{data}{the data argument.}
+#' \item{ci}{a matrix of the confidence intervals for the parameter of interest.}
+#' \item{omega}{a vetor of weights for the weighted score conditions (\eqn{\omega}).
+#'   A matrix of two sets of omega is returned when \code{estimand = "ATE"}.}
+#' \item{effN_ps}{The effective sample size for the propensity score estimation.
+#'   A vector of length two for two propensity score esimtion is returned when 
+#'   \code{estimand = "ATE"}.}
+#' \item{effN_est}{The effective sample size for the parameter of interest
+#'   estimation.}
+#' \item{effN_original}{The effective sample size with the initial weights.}
+#' \item{call}{the matched call.}
 nawt <- function (formula, outcome, estimand = "ATT", method = "score", 
 									data, weights = NULL, alpha = 2, twostep = TRUE, 
 									boot = FALSE, B = 2000, clevel = 0.95, message = TRUE) {
