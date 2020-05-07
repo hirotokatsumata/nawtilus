@@ -36,28 +36,39 @@ gmmW <- function (missing, ps, x, N, N1, weights, estimand, alpha) {
 }
 
 ## gmm variance estimation
-gmmV <- function (missing, ps, x, outcome, est, N, N1, weights, estimand, est.weights, alpha) {
+gmmV <- function (missing, ps, x, outcome, est, N, N1, weights, 
+									estimand, est.weights, alpha) {
 	missing <- c(missing)
 	if (estimand == "MO") {
 		sumw0 <- sum((1 - missing) / (1 - ps) * weights)
-		G0score <- t(x) %*% (x * c(alpha * missing - (alpha + 1) * ps) * ps^alpha * (1 - ps) * weights) / N
+		G0score <- 
+			t(x) %*% 
+				(x * c(alpha * missing - (alpha + 1) * ps) * ps^alpha * (1 - ps) * 
+					weights) / N
 		G0cb <- t(x) %*% (x * c(1 - missing) * ps / (1 - ps) * weights) / N
 		g0score <- c(missing - ps) * ps^alpha * x * weights
 		g0cb <- c(((1 - missing) / (1 - ps)) - 1) * x * weights		
-		G0mub <- apply(ps / (1 - ps) * c(1 - missing) * c(outcome - est) * x * weights * N / sumw0, 2, sum) / N
+		G0mub <- apply(ps / (1 - ps) * c(1 - missing) * c(outcome - est) * x * 
+									 weights * N / sumw0, 2, sum) / N
 		G0mu <- c(G0mub, -1)
 		g0mu <- (outcome - est) * est.weights * N
 	} else if (estimand == "ATT") {
-		G0score <- t(x) %*% (-x * c(alpha * missing - (alpha + 1) * ps) * ps^alpha * (1 - ps) * weights) / N
+		G0score <- 
+			t(x) %*% 
+				(-x * c(alpha * missing - (alpha + 1) * ps) * ps^alpha * (1 - ps) * 
+					weights) / N
 		G0cb <- t(x) %*% (-x * c(1 - missing) * ps / (1 - ps) * weights) / N
 		g0score <- -c((1 - ps) - (1 - missing)) * ps^alpha * x * weights
 		g0cb <- -c(((1 - missing) / (1 - ps)) - 1) * x * weights		
 		est1 <- sum(missing * outcome * est.weights)
 		est0 <- sum((1 - missing) * outcome * est.weights)
 		sumw0 <- sum((1 - missing) * ps / (1 - ps) * weights)
-		G0mub <- -apply(ps / (1 - ps) * c(1 - missing) * (outcome - est0) * x * weights * N / sumw0, 2, sum) / N
+		G0mub <- -apply(ps / (1 - ps) * c(1 - missing) * (outcome - est0) * x * 
+										weights * N / sumw0, 2, sum) / N
 		G0mu <- c(G0mub, -1)
-		g0mu <- (missing * (outcome - est1) * N / N1 - (1 - missing) * (outcome - est0) / (1 - ps) * ps * N / sumw0) * weights
+		g0mu <- (missing * (outcome - est1) * N / N1 - 
+							(1 - missing) * (outcome - est0) / (1 - ps) * ps * N / sumw0) * 
+						weights
 	} else if (estimand == "ATE") {
 		ps1 <- ps[1, ]
 		ps2 <- ps[2, ]
@@ -65,23 +76,35 @@ gmmV <- function (missing, ps, x, outcome, est, N, N1, weights, estimand, est.we
 		est1 <- sum(missing * outcome * est.weights)
 		sumw1 <- sum((1 - missing) / (1 - ps1) * weights)
 		sumw2 <- sum(missing / ps2) * weights
-		G0score1 <- t(x) %*% (x * c(alpha * missing - (alpha + 1) * ps1) * ps1^alpha * (1 - ps1) * weights) / N
+		G0score1 <- 
+			t(x) %*% 
+				(x * c(alpha * missing - (alpha + 1) * ps1) * ps1^alpha * (1 - ps1) * 
+					weights) / N
 		G0cb1 <- t(x) %*% (x * c(1 - missing) * ps1 / (1 - ps1) * weights) / N
 		g0score1 <- c(missing - ps1) * ps1^alpha * x * weights
 		g0cb1 <- c(((1 - missing) / (1 - ps1)) - 1) * x * weights		
-		G0mu1 <- c(apply(ps1 / (1 - ps1) * c(1 - missing) * c(outcome - est0) * x * weights * N / sumw1, 2, sum) / N, 
+		G0mu1 <- c(apply(ps1 / (1 - ps1) * c(1 - missing) * c(outcome - est0) * x * 
+								weights * N / sumw1, 2, sum) / N, 
 							 -1)
 		g0mu1 <- (1 - missing) * (outcome - est0) * est.weights * N
-		G0score2 <- t(x) %*% (x * c(alpha * (1 - missing) - (alpha + 1) * (1 - ps2)) * (1 - ps2)^alpha * ps2 * weights) / N
+		G0score2 <- 
+			t(x) %*% 
+				(x * c(alpha * (1 - missing) - 
+								(alpha + 1) * (1 - ps2)) * 
+							(1 - ps2)^alpha * ps2 * weights) / N
 		g0score2 <- c((1 - missing) - (1 - ps2)) * (1 - ps2)^alpha * x * weights
 		G0cb2 <- t(x) %*% (x * missing * (1 - ps2) / ps2 * weights) / N
 		g0cb2 <- c((missing / ps2) - 1) * x * weights
-		G0mu2 <- c(apply((1 - ps2) / ps2 * missing * c(outcome - est1) * x * weights * N / sumw2, 2, sum) / N, 
+		G0mu2 <- c(apply((1 - ps2) / ps2 * missing * c(outcome - est1) * x * 
+											weights * N / sumw2, 2, sum) / N, 
 							 -1)
 		g0mu2 <- missing * (outcome - est1) * est.weights * N
 	} else { # ATEcombined
-		G0score <- t(x) %*% (x * ((alpha * (missing - ps) - ps) * ps^alpha * (1 - ps) +
-													(alpha * (ps - missing) - (1 - ps)) * ps * (1 - ps)^alpha) * weights) / N
+		G0score <- 
+			t(x) %*% 
+				(x * ((alpha * (missing - ps) - ps) * ps^alpha * (1 - ps) +
+								(alpha * (ps - missing) - (1 - ps)) * ps * (1 - ps)^alpha) * 
+					weights) / N
 		G0cb <- t(x) %*% (-x * c(missing - ps)^2 / (ps * (1 - ps)) * weights) / N
 		g0score <- (missing - ps) * (ps^alpha + (1 - ps)^alpha) * x * weights
 		g0cb <- c(missing - ps) / (ps * (1 - ps)) * x * weights
@@ -89,8 +112,11 @@ gmmV <- function (missing, ps, x, outcome, est, N, N1, weights, estimand, est.we
 		est0 <- sum((1 - missing) * outcome * est.weights)
 		sumw1 <- sum(missing / ps * weights)
 		sumw0 <- sum((1 - missing) / (1 - ps) * weights)
-		G0mub <- -apply((1 - ps) / ps * missing * (outcome - est1) * x * weights * N / sumw1 + 
-										ps / (1 - ps) * (1 - missing) * (outcome - est0) * x * weights * N / sumw0, 2, sum) / N
+		G0mub <- 
+			-apply((1 - ps) / ps * missing * (outcome - est1) * x * 
+							weights * N / sumw1 + 
+						 ps / (1 - ps) * (1 - missing) * (outcome - est0) * x * 
+						 	weights * N / sumw0, 2, sum) / N
 		G0mu <- c(G0mub, -1)
 		g0mu <- (missing * (outcome - est1) / ps * N / sumw1 - 
 						 (1 - missing) * (outcome - est0) / (1 - ps) * N / sumw0) * weights
@@ -111,7 +137,8 @@ gmmV <- function (missing, ps, x, outcome, est, N, N1, weights, estimand, est.we
 		G01 <- as.matrix(rbind(cbind(rbind(G0score1, G0cb1), 0), G0mu1))
 		G02 <- as.matrix(rbind(cbind(rbind(G0score2, G0cb2), 0), G0mu2))
 		G03 <- as.matrix(rbind(cbind(G01, zero), cbind(zero, G02)))
-		G <- as.matrix(rbind(cbind(G03, 0), c(rep(0, ncol(x)), -1, rep(0, ncol(x)), 1, -1)))
+		G <- as.matrix(
+					rbind(cbind(G03, 0), c(rep(0, ncol(x)), -1, rep(0, ncol(x)), 1, -1)))
 		g0 <- as.matrix(cbind(g0score1, g0cb1, g0mu1, g0score2, g0cb2, g0mu2, 0))
 		Sigma <- t(g0) %*% g0 / N
 		invW01 <- gmmW(missing = missing, ps = ps1, x = x, N = N, N1 = N1, 
@@ -126,7 +153,8 @@ gmmV <- function (missing, ps, x, outcome, est, N, N1, weights, estimand, est.we
 		invW <- rbind(cbind(invW1, invWzero, 0), cbind(invWzero, invW2, 0), 0)
 		invW[nrow(invW), ncol(invW)] <- 1
 		bread <- ginv(t(G) %*% invW %*% G)
-		(bread %*% t(G) %*% invW %*% Sigma %*% invW %*% G %*% bread / N)[-c(ncol(x) + 1, ncol(x) * 2 + 2), 
-																																		 -c(ncol(x) + 1, ncol(x) * 2 + 2)]
+		(bread %*% t(G) %*% invW %*% Sigma %*% invW %*% G %*% bread / N)[
+			-c(ncol(x) + 1, ncol(x) * 2 + 2), 
+			-c(ncol(x) + 1, ncol(x) * 2 + 2)]
 	}
 }

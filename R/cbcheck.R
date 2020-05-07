@@ -23,11 +23,14 @@ cbcheck <- function (result, addcov = NULL, standardize = TRUE,
 		diff.adj <- apply(w.original * x, 2, sum) / sum(w.original) - 
 									apply(result$weights * x * (1 - missing), 2, sum)
 		diff.un <- apply(w.original * x, 2, sum) / sum(w.original) - 
-								apply(w.original * x * (1 - missing), 2, sum) / sum(w.original * (1 - missing))
+								apply(w.original * x * (1 - missing), 2, sum) / 
+												sum(w.original * (1 - missing))
 	} else { # ATT, ATE, and ATEcombined
 		diff.adj <- apply(result$weights * x * (2 * missing - 1), 2, sum)
-		diff.un <- apply(w.original * x * missing, 2, sum) / sum(w.original * missing) - 
-								apply(w.original * x * (1 - missing), 2, sum) / sum(w.original * (1 - missing))
+		diff.un <- apply(w.original * x * missing, 2, sum) / 
+											sum(w.original * missing) - 
+								apply(w.original * x * (1 - missing), 2, sum) / 
+												sum(w.original * (1 - missing))
 	}
 	covariates <- factor(colnames(x), levels = colnames(x))
 	res <- data.frame(covariates = covariates, 
@@ -36,7 +39,10 @@ cbcheck <- function (result, addcov = NULL, standardize = TRUE,
 										diff.un = diff.un)
 	if (standardize == TRUE) {
 		if (result$estimand == "ATT") {
-			std <- apply(x[missing == 1, ], 2, function(cov) weighted_sd(cov, weights = w.original[missing == 1]))
+			std <- 
+				apply(x[missing == 1, ], 2, 
+							function(cov) weighted_sd(cov, 
+									 											weights = w.original[missing == 1]))
 		} else { # ATE and MO
 			std <- apply(x, 2, function(cov) weighted_sd(cov, weights = w.original))
 		}

@@ -11,7 +11,8 @@ summary.nawt <- function (result) {
 	coef.table <- cbind(as.vector(c(result$est, coef)),
 											as.vector(se[c(k + 1, 1:k)]),
 											as.vector(c(result$est, coef) / se[c(k + 1, 1:k)]),
-											as.vector(2 - 2 * pnorm(abs(c(result$est, coef) / se[c(k + 1, 1:k)]))))
+											as.vector(2 - 2 * pnorm(abs(c(result$est, coef) / 
+																										se[c(k + 1, 1:k)]))))
 	colnames(coef.table) <- c("Estimate", "Std. Error", "z value", "Pr(>|z|)")
 	if (result$estimand == "ATE") {
 		rownames(coef.table) <- c("est", result$names.x, result$names.x)
@@ -25,7 +26,8 @@ summary.nawt <- function (result) {
 	coef.print <- data.frame(coef.table, as.vector(symp))
 	colnames(coef.print)[5] <- ""
 	if (result$estimand == "ATE") {
-		rownames(coef.print) <- c("est", paste0(rep(c("ps1_", "ps2_"), each = k / 2), result$names.x))
+		rownames(coef.print) <- 
+			c("est", paste0(rep(c("ps1_", "ps2_"), each = k / 2), result$names.x))
 	} else { # ATT, ATEcombined, and MO
 		rownames(coef.print) <- c("est", result$names.x)
 	}
@@ -36,7 +38,8 @@ summary.nawt <- function (result) {
 	print(coef.print, digits = getOption("digits") - 3)
 	cat("---\n")
 	cat("Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 \n")
-	cat("\nEffective N for propensity score estimation:", round(result$effN_ps, digits = 2))
+	cat("\nEffective N for propensity score estimation:", 
+			round(result$effN_ps, digits = 2))
 	if (result$estimand == "MO") {
 		cat("\nEffective N for the", result$estimand, "estimation: ", 
 				round(result$effN_est, digits = 2), "\n")
