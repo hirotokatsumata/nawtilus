@@ -1,6 +1,6 @@
 nawt0 <- function (formula, outcome, estimand = "ATT", method = "score", 
-									 alpha = 2, twostep = TRUE, weights = NULL, 
-									 varcov = TRUE, data) {
+									 data, weights = NULL, alpha = 2, twostep = TRUE, 
+									 varcov = TRUE) {
 	scratio <- NULL
 	outcome0 <- outcome
 	outcome <- c(data[, outcome])

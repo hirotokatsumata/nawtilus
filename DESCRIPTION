@@ -11,7 +11,7 @@ Description: Implements the navigated weighting (NAWT), which improves the inver
     includes the covariate balancing propensity score proposed by Imai and Ratkovic 
     (2014), which uses covariate balancing conditions in propensity score 
     estimation. The point estimate of the parameter of interest as well as 
-    coefficients for propensity score estimation and their uncertainty are also 
+    coefficients for propensity score estimation and their uncertainty are 
     produced using the M-estimation. The same functions can be used to estimate 
     average outcomes in missing outcome cases.
 License: GPL-3
@@ -19,3 +19,4 @@ Encoding: UTF-8
 LazyData: true
 Imports: MASS,
     hypergeo
+RoxygenNote: 6.1.1
