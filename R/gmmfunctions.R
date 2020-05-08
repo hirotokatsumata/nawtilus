@@ -32,7 +32,7 @@ gmmW <- function (missing, ps, x, N, N1, weights, estimand, alpha) {
 		Wlr <- t(ps^{-1} / (1 - ps) * weights * x) %*% x
 		W <- as.matrix(rbind(cbind(Wul, Wur), cbind(Wll, Wlr))) / N
 	}
-	ginv(W)
+	MASS::ginv(W)
 }
 
 ## gmm variance estimation
@@ -130,7 +130,7 @@ gmmV <- function (missing, ps, x, outcome, est, N, N1, weights,
 									weights = weights, estimand = estimand, alpha = alpha)
 		invW <- as.matrix(rbind(cbind(invW0, 0), 0))
 		invW[nrow(invW), ncol(invW)] <- 1
-		bread <- ginv(t(G) %*% invW %*% G)
+		bread <- MASS::ginv(t(G) %*% invW %*% G)
 		bread %*% t(G) %*% invW %*% Sigma %*% invW %*% G %*% bread / N
 	} else { # ATE
 		zero <- matrix(0, nrow = ncol(x) * 2 + 1, ncol = ncol(x) + 1)
@@ -152,7 +152,7 @@ gmmV <- function (missing, ps, x, outcome, est, N, N1, weights,
 		invWzero <- matrix(0, nrow = ncol(x) * 2 + 1, ncol = ncol(x) * 2 + 1)
 		invW <- rbind(cbind(invW1, invWzero, 0), cbind(invWzero, invW2, 0), 0)
 		invW[nrow(invW), ncol(invW)] <- 1
-		bread <- ginv(t(G) %*% invW %*% G)
+		bread <- MASS::ginv(t(G) %*% invW %*% G)
 		(bread %*% t(G) %*% invW %*% Sigma %*% invW %*% G %*% bread / N)[
 			-c(ncol(x) + 1, ncol(x) * 2 + 2), 
 			-c(ncol(x) + 1, ncol(x) * 2 + 2)]

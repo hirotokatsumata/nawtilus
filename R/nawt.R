@@ -11,6 +11,8 @@
 #'
 #' DETAILS 
 #'
+#' @export
+#'
 #' @param formula an object of class \code{\link[stats]{formula}} (or one that
 #'   can be coerced to that class): a symbolic description of the model to be 
 #'   fitted.

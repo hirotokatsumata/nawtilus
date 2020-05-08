@@ -85,7 +85,7 @@ cbV <- function (missing, ps, x, outcome, est, N, N1, weights,
 		G0 <- as.matrix(rbind(cbind(G0cb, 0), G0mu))
 		g0 <- as.matrix(cbind(g0cb, g0mu))
 		Sigma <- t(g0) %*% g0 / N
-		ginv(G0) %*% Sigma %*% t(ginv(G0)) / N
+		MASS::ginv(G0) %*% Sigma %*% t(MASS::ginv(G0)) / N
 	} else { # ATE
 		zero <- matrix(0, nrow = ncol(x) + 1, ncol = ncol(x) + 1)
 		G01 <- as.matrix(rbind(cbind(G0cb1, 0), G0mu1))
@@ -95,7 +95,8 @@ cbV <- function (missing, ps, x, outcome, est, N, N1, weights,
 													c(rep(0, ncol(x)), -1, rep(0, ncol(x)), 1, -1)))
 		g0 <- as.matrix(cbind(g0cb1, g0mu1, g0cb2, g0mu2, 0))
 		Sigma <- t(g0) %*% g0 / N
-		(ginv(G0) %*% Sigma %*% t(ginv(G0)) / N)[-c(ncol(x) + 1, ncol(x) * 2 + 2), 
-																						 -c(ncol(x) + 1, ncol(x) * 2 + 2)]
+		(MASS::ginv(G0) %*% Sigma %*% t(MASS::ginv(G0)) / N)[
+																					-c(ncol(x) + 1, ncol(x) * 2 + 2), 
+																					-c(ncol(x) + 1, ncol(x) * 2 + 2)]
 	}
 }

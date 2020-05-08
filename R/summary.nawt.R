@@ -1,4 +1,22 @@
-## Summary
+#' Summarizing Navigated Weighting Estimation
+#'
+#' Prints a summary of a fitted \code{nawt} object.
+#'
+#' Prints a summmary of a \code{nawt} object, in a format similar to glm.
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+## S3 method for class 'CBPS'
 summary.nawt <- function (result) {
 	est <- signif(result$est, digits = getOption("digits") - 3)
 	k <- length(result$coef)
