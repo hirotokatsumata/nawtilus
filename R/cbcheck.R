@@ -48,8 +48,8 @@ cbcheck <- function (result, addcov = NULL, standardize = TRUE,
 		}
 		std[type == "binary"] <- 1
 		std[1] <- 1
-		res <- res %>% mutate(diff.adj = diff.adj / std,
-													diff.un = diff.un / std)
+		res$diff.adj <- res$diff.adj / std
+		res$diff.un <- res$diff.un / std
 	}
 	rownames(res) <- NULL
 	plotcb <- plot_balance(result = res, standardize = standardize, 

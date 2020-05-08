@@ -9,7 +9,7 @@
 #' score estimation. \code{nawt} can also be used to estimate average outcomes
 #' in missing outcome cases.
 #'
-#' DETAILS
+#' DETAILS 
 #'
 #' @param formula an object of class \code{\link[stats]{formula}} (or one that
 #'   can be coerced to that class): a symbolic description of the model to be 
@@ -95,6 +95,104 @@
 #'   estimation.}
 #' \item{effN_original}{The effective sample size with the initial weights.}
 #' \item{call}{the matched call.}
+#'
+#' @author Hiroto Katsumata; The \code{nawt} function is based on the code for 
+#'   version 0.21 of the \code{\link[CBPS]{CBPS}} function implemented in the \code{CBPS} package, 
+#'   originally written by Christian Fong, Marc Ratkovic, Kosuke Imai, and 
+#'   Xiaolin Yang.
+#' 
+#' @seealso \code{\link{summary.nawt}}
+#'
+#' @examples
+#' # Simulation from Kang and Shafer (2007) and Imai and Ratkovic (2014)
+#' # ATT estimation
+#' # True ATT is 10
+#' tau <- 10
+#' set.seed(123456)
+#' n <- 1000
+#' X <- matrix(rnorm(n * 4, mean = 0, sd = 1), nrow = n, ncol = 4)
+#' prop <- 1 / (1 + exp(X[, 1] - 0.5 * X[, 2] + 0.25 * X[, 3] + 0.1 * X[, 4]))
+#' treat <- rbinom(n, 1, prop)
+#' y <- 210 + 27.4 * X[, 1] + 13.7 * X[, 2] + 13.7 * X[, 3] + 13.7 * X[, 4] + 
+#'      tau * treat + rnorm(n)
+#' df <- data.frame(X, treat, y)
+#' colnames(df) <- c("x1", "x2", "x3", "x4", "treat", "y")
+#'
+#' # A misspecified model
+#' Xmis <- data.frame(x1mis = exp(X[, 1] / 2), 
+#'                    x2mis = X[, 2] * (1 + exp(X[, 1]))^(-1) + 10,
+#'                    x3mis = (X[, 1] * X[, 3] / 25 + 0.6)^3, 
+#'                    x4mis = (X[, 2] + X[, 4] + 20)^2)
+#'
+#' # Data frame and formulas for propensity score estimation
+#' df <- data.frame(df, Xmis)
+#' formula_c <- as.formula(treat ~ x1 + x2 + x3 + x4)
+#' formula_m <- as.formula(treat ~ x1mis + x2mis + x3mis + x4mis)
+#'
+#' # Correct propensity score model
+#' # Power weighting function with alpha = 2
+#' fits2c <- nawt(formula = formula_c, outcome = "y", estimand = "ATT", 
+#'                method = "score", data = df, alpha = 2)
+#' summary(fits2c)
+#' 
+#' # Covariate balancing weighting function
+#' fitcbc <- nawt(formula = formula_c, outcome = "y", estimand = "ATT", 
+#'                method = "cb", data = df)
+#' summary(fitcbc)
+#' 
+#' # Standard logistic regression
+#' fits0c <- nawt(formula = formula_c, outcome = "y", estimand = "ATT", 
+#'                method = "score", data = df, alpha = 0)
+#' summary(fits0c)
+#' 
+#' # Misspecified propensity score model
+#' # Power weighting function with alpha = 2
+#' fits2m <- nawt(formula = formula_m, outcome = "y", estimand = "ATT", 
+#'                method = "score", data = df, alpha = 2)
+#' summary(fits2m)
+#' 
+#' # Covariate balancing weighting function
+#' fitcbm <- nawt(formula = formula_m, outcome = "y", estimand = "ATT", 
+#'                method = "cb", data = df)
+#' summary(fitcbm)
+#' 
+#' # Standard logistic regression
+#' fits0m <- nawt(formula = formula_m, outcome = "y", estimand = "ATT", 
+#'                method = "score", data = df, alpha = 0)
+#' summary(fits0m)
+#'
+#' 
+#' # Empirical example
+#' # Load the LaLonde data
+#' data(LaLonde)
+#' formula_l <- as.formula("exper ~ age + I(age^2) + educ + I(educ^2) + 
+#'                          black + hisp + married + nodegr +
+#'                          I(re75 / 1000) + I(re75 == 0) + I(re74 / 1000)")
+#'
+#' # Experimental benchmark
+#' mean(subset(LaLonde, exper == 1 & treat == 1)$re78) -
+#'   mean(subset(LaLonde, exper == 1 & treat == 0)$re78)
+#'
+#' # Power weighting function with alpha = 2
+#' fits2l <- nawt(formula = formula_l, estimand = "ATT", method = "score",
+#'                outcome = "re78", data = LaLonde, alpha = 2)
+#' mean(subset(LaLonde, exper == 1 & treat == 1)$re78) -
+#'   with(LaLonde, sum((1 - exper) * re78 * fits2l$weights) / 
+#'                 sum((1 - exper) * fits2l$weights))
+#'
+#' # Covariate balancing weighting function
+#' fitcbl <- nawt(formula = formula_l, estimand = "ATT", method = "cb",
+#'                outcome = "re78", data = LaLonde)
+#' mean(subset(LaLonde, exper == 1 & treat == 1)$re78) -
+#'   with(LaLonde, sum((1 - exper) * re78 * fitcbl$weights) / 
+#'                 sum((1 - exper) * fitcbl$weights))
+#'
+#' # Standard logistic regression
+#' fits0l <- nawt(formula = formula_l, estimand = "ATT", method = "score",
+#'                outcome = "re78", data = LaLonde, alpha = 0)
+#' mean(subset(LaLonde, exper == 1 & treat == 1)$re78) -
+#'   with(LaLonde, sum((1 - exper) * re78 * fits0l$weights) / 
+#'                 sum((1 - exper) * fits0l$weights))
 nawt <- function (formula, outcome, estimand = "ATT", method = "score", 
 									data, weights = NULL, alpha = 2, twostep = TRUE, 
 									boot = FALSE, B = 2000, clevel = 0.95, message = TRUE) {

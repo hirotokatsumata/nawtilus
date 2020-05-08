@@ -19,8 +19,8 @@ plot_balance <- function (result, standardize = TRUE, absolute = TRUE, threshold
 	diff <- paste(std, "Mean Differences")
 	result$covariates <- factor(result$covariates, levels = result$covariates[nrow(result):1])
 	if (absolute == TRUE) {
-		result <- result %>% mutate(diff.adj = abs(diff.adj),
-																diff.un = abs(diff.un))
+		result$diff.adj <- abs(result$diff.adj)
+		result$diff.un <- abs(result$diff.un)
 		diff <- paste("Absolute", std, "Mean Differences")
 	} else { # absolute == FALSE
 		threshold <- c(-threshold, threshold)
