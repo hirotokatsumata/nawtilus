@@ -63,7 +63,7 @@ The function summary (i.e., \code{\link{summary.nawt}}) can be used to obtain or
 
 An object of class "nawt" is a list containing the following components:
 
-\item{est}{the estimates of the parameter of interest.}
+\item{est}{the point estimate of the parameter of interest.}
 \item{weights}{the estimated inverse probability weights.}
 \item{ps}{the estimated propensity scores. A matrix of two sets of the 
   estimated propensity scores is returned when \code{estimand = "ATE"}.}
@@ -99,12 +99,12 @@ outcome cases.}
 \item{ci}{a matrix of the confidence intervals for the parameter of interest.}
 \item{omega}{a vetor of weights for the weighted score conditions (\eqn{\omega}).
   A matrix of two sets of omega is returned when \code{estimand = "ATE"}.}
-\item{effN_ps}{The effective sample size for the propensity score estimation.
+\item{effN_ps}{the effective sample size for the propensity score estimation.
   A vector of length two for two propensity score esimtion is returned when 
   \code{estimand = "ATE"}.}
-\item{effN_est}{The effective sample size for the parameter of interest
+\item{effN_est}{the effective sample size for the parameter of interest
   estimation.}
-\item{effN_original}{The effective sample size with the initial weights.}
+\item{effN_original}{the effective sample size with the initial weights.}
 \item{call}{the matched call.}
 }
 \description{

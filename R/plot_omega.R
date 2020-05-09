@@ -1,13 +1,13 @@
 ## Plot weights for the score omega(hat(pi)) and estimated propensity score distribution
-plot_omega <- function (result, relative = TRUE) {
-	omega <- result$omega
+plot_omega <- function (object, relative = TRUE) {
+	omega <- object$omega
 	if (relative == TRUE) {
 		ylab <- expression(paste("Relative weights for the score ", omega(hat(pi))))
 	} else {
 		ylab <- expression(paste("Absolute weights for the score ", omega(hat(pi))))
 	}
-	if (result$estimand != "ATE") {
-		dens <- density(result$ps, from = 0, to = 1)
+	if (object$estimand != "ATE") {
+		dens <- density(object$ps, from = 0, to = 1)
 		limx <- c(0, 1)
 		plot(dens,
 				 xlim = limx,
@@ -16,8 +16,8 @@ plot_omega <- function (result, relative = TRUE) {
 				 ann = FALSE,
 				 axes = FALSE)
 	} else { # ATE
-		dens1 <- density(result$ps[1, ], from = 0, to = 1)
-		dens2 <- density(result$ps[2, ], from = 0, to = 1)
+		dens1 <- density(object$ps[1, ], from = 0, to = 1)
+		dens2 <- density(object$ps[2, ], from = 0, to = 1)
 		limx <- c(0, 1)
 		plot(dens1,
 				 lty = 1,
@@ -40,19 +40,19 @@ plot_omega <- function (result, relative = TRUE) {
 	axis(side = 4)
 	mtext("Density", side = 4, line = 3)
 	par(new = TRUE)
-	if (result$estimand == "ATE") {
-		ps1 <- result$ps[1, ]
-		ps2 <- result$ps[2, ]
-		omega1 <- result$omega[1, ]
-		omega2 <- result$omega[2, ]
+	if (object$estimand == "ATE") {
+		ps1 <- object$ps[1, ]
+		ps2 <- object$ps[2, ]
+		omega1 <- object$omega[1, ]
+		omega2 <- object$omega[2, ]
 		if (relative == TRUE) {
 			omega1 <- omega1 / mean(omega1)
 			omega2 <- omega2 / mean(omega2)
 		}
-		psc <- c(ps1[result$treat == 0], ps2[result$treat == 0])
-		pst <- c(ps1[result$treat == 1], ps2[result$treat == 1])
-		omegac <- c(omega1[result$treat == 0], omega2[result$treat == 0])
-		omegat <- c(omega1[result$treat == 1], omega2[result$treat == 1])
+		psc <- c(ps1[object$treat == 0], ps2[object$treat == 0])
+		pst <- c(ps1[object$treat == 1], ps2[object$treat == 1])
+		omegac <- c(omega1[object$treat == 0], omega2[object$treat == 0])
+		omegat <- c(omega1[object$treat == 1], omega2[object$treat == 1])
 		plot(psc, omegac,
 				 col = rgb(39/ 255, 139/ 255, 210 / 255, alpha = 0.3),
 				 xlim = limx,
@@ -72,9 +72,9 @@ plot_omega <- function (result, relative = TRUE) {
 		if (relative == TRUE) {
 			omega <- omega / mean(omega)
 		}
-		omegac <- omega[result$treat == 0]
-		omegat <- omega[result$treat == 1]
-		plot(result$ps[result$treat == 0], omegac,
+		omegac <- omega[object$treat == 0]
+		omegat <- omega[object$treat == 1]
+		plot(object$ps[object$treat == 0], omegac,
 				 col = rgb(39/ 255, 139/ 255, 210 / 255, alpha = 0.3),
 				 xlim = limx,
 				 ylim = c(0, max(c(omegac, omegat))),
@@ -82,7 +82,7 @@ plot_omega <- function (result, relative = TRUE) {
 				 ylab = "",
 				 axes = FALSE)
 		par(new = TRUE)
-		plot(result$ps[result$treat == 1], omegat,
+		plot(object$ps[object$treat == 1], omegat,
 				 col = rgb(220 / 255, 50 / 255, 46 / 255, alpha = 0.3),
 				 xlim = limx,
 				 ylim = c(0, max(c(omegac, omegat))),

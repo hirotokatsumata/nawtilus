@@ -4,11 +4,32 @@
 \alias{summary.nawt}
 \title{Summarizing Navigated Weighting Estimation}
 \usage{
-\method{summary}{nawt}(result)
+\method{summary}{nawt}(object)
+}
+\arguments{
+\item{object}{an object of class “nawt”, usually, a result of a call to \code{\link{nawt}}.}
+}
+\value{
+\item{call}{the matched call.}
+\item{est}{the point estimate of the parameter of interest.}
+\item{coefficients}{a table including coefficients, standard errors, 
+  z-values, and two-sided p-values.}
+\item{effN_ps}{the effective sample size for the propensity score estimation.}
+\item{effN_est}{the effective sample size for the parameter of interest
+  estimation.}
 }
 \description{
 Prints a summary of a fitted \code{nawt} object.
 }
 \details{
 Prints a summmary of a \code{nawt} object, in a format similar to glm.
+}
+\examples{
+# For examples see example(nawt)
+}
+\seealso{
+\code{\link{nawt}}, \code{\link[base]{summary}}
+}
+\author{
+Hiroto Katsumata.
 }
