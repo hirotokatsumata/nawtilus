@@ -1,5 +1,5 @@
 ## Print (S3 method)
-print.nawt <- function (object) {
+print.nawt <- function (object, ...) {
 	est <- signif(object$est, digits = getOption("digits") - 3)
 	if (object$estimand == "ATE") {
 		coef <- c(object$coef[1, ], object$coef[2, ])

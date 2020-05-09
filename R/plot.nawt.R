@@ -1,5 +1,5 @@
 ## Comparison between weights: scattered plot
-plot.nawt <- function (object) {
+plot.nawt <- function (object, ...) {
 	maxweight <- max(c(object$naive_weights, object$weights))
 	minweight <- min(c(object$naive_weights, object$weights))
 	par(pty = "s")

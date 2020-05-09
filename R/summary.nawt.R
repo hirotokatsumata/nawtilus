@@ -7,6 +7,7 @@
 #' @export
 #'
 #' @param object an object of class “nawt”, usually, a result of a call to \code{\link{nawt}}.
+#' @param ... additional arguments to be passed to summary.
 #'
 #' @return 
 #' \item{call}{the matched call.}
@@ -23,7 +24,7 @@
 #'
 #' @examples # For examples see example(nawt)
 ## S3 method for class 'nawt'
-summary.nawt <- function (object) {
+summary.nawt <- function (object, ...) {
 	est <- signif(object$est, digits = getOption("digits") - 3)
 	k <- length(object$coef)
 	se <- sqrt(diag(object$varcov))

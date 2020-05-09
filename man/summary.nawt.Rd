@@ -4,10 +4,12 @@
 \alias{summary.nawt}
 \title{Summarizing Navigated Weighting Estimation}
 \usage{
-\method{summary}{nawt}(object)
+\method{summary}{nawt}(object, ...)
 }
 \arguments{
 \item{object}{an object of class “nawt”, usually, a result of a call to \code{\link{nawt}}.}
+
+\item{...}{additional arguments to be passed to summary.}
 }
 \value{
 \item{call}{the matched call.}
