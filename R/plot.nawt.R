@@ -1,16 +1,62 @@
-## Comparison between weights: scattered plot
-plot.nawt <- function (object, ...) {
-	maxweight <- max(c(object$naive_weights, object$weights))
-	minweight <- min(c(object$naive_weights, object$weights))
+#' Plot a Scattered Plot Comparing the Navigated Weighting and Naive Estimation
+#'
+#' Plots a scattered plot comparing the resulting inverse probability weights 
+#' estimated by the navigated weighting and the standard logistic regression.
+#'
+#' The x-axis shows the inverse probaility weights estimated by estimating 
+#' propensity scores with the standard logistic regression whereas the y-axis
+#' shows those with the navigated weighting. Excessively heavy weights on only a
+#' few observations in the navigated weighting may indicate the failure of 
+#' the estimation.
+#'
+#' @export
+#'
+#' @param x an object of class “nawt”, usually, a result of a call to \code{\link{nawt}}.
+#' @param ... additional arguments to be passed to plot.
+#'
+#' @author Hiroto Katsumata.
+#' 
+#' @seealso \code{\link{nawt}}, \code{\link[graphics]{plot}}
+#'
+#' @examples
+#' # Simulation from Kang and Shafer (2007) and Imai and Ratkovic (2014)
+#' tau <- 10
+#' set.seed(123456)
+#' n <- 1000
+#' X <- matrix(rnorm(n * 4, mean = 0, sd = 1), nrow = n, ncol = 4)
+#' prop <- 1 / (1 + exp(X[, 1] - 0.5 * X[, 2] + 0.25 * X[, 3] + 0.1 * X[, 4]))
+#' treat <- rbinom(n, 1, prop)
+#' y <- 210 + 27.4 * X[, 1] + 13.7 * X[, 2] + 13.7 * X[, 3] + 13.7 * X[, 4] + 
+#'      tau * treat + rnorm(n)
+#'
+#' # Data frame and formulas for propensity score estimation
+#' df <- data.frame(X, treat, y)
+#' colnames(df) <- c("x1", "x2", "x3", "x4", "treat", "y")
+#' formula_c <- as.formula(treat ~ x1 + x2 + x3 + x4)
+#'
+#' # Power weighting function with alpha = 2
+#' # ATT estimation
+#' fitatt <- nawt(formula = formula_c, outcome = "y", estimand = "ATT", 
+#'                method = "score", data = df, alpha = 2)
+#' plot(fitatt)
+#'
+#' # ATE estimation
+#' fitate <- nawt(formula = formula_c, outcome = "y", estimand = "ATE", 
+#'                method = "score", data = df, alpha = 2)
+#' plot(fitate)
+## S3 method for class 'nawt'
+plot.nawt <- function (x, ...) {
+	maxweight <- max(c(x$naive_weights, x$weights))
+	minweight <- min(c(x$naive_weights, x$weights))
 	par(pty = "s")
-	plot(object$naive_weights[object$treat == 0], 
-			 object$weights[object$treat == 0], 
+	plot(x$naive_weights[x$treat == 0], 
+			 x$weights[x$treat == 0], 
 			 col = rgb(39/ 255, 139/ 255, 210 / 255, alpha = 0.75),
 			 xlim = c(0, maxweight), ylim = c(0, maxweight),
 			 xlab = "", ylab = "")
 	par(new = TRUE)
-	plot(object$naive_weights[object$treat == 1], 
-			 object$weights[object$treat == 1], 
+	plot(x$naive_weights[x$treat == 1], 
+			 x$weights[x$treat == 1], 
 			 col = rgb(220 / 255, 50 / 255, 46 / 255, alpha = 0.75),
 			 xlim = c(0, maxweight), ylim = c(0, maxweight),
 			 xlab = "Naive weights", ylab = "Navigated weights")
