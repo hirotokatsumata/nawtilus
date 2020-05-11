@@ -52,12 +52,9 @@ cbcheck <- function (object, addcov = NULL, standardize = TRUE,
 		res$diff.un <- res$diff.un / std
 	}
 	rownames(res) <- NULL
-	plotcb <- plot_balance(result = res, standardize = standardize, 
-												 absolute = absolute, threshold = threshold, sort = sort)
 	if (plot == TRUE) {
-		print(plotcb)
+		plot_balance(result = res, standardize = standardize, 
+								 absolute = absolute, threshold = threshold, sort = sort)
 	}
-	res <- list(balance = res,
-							plot = plotcb)
 	invisible(res)
 }
