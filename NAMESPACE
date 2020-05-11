@@ -3,4 +3,5 @@
 S3method(plot,nawt)
 S3method(print,nawt)
 S3method(summary,nawt)
+export(cbcheck)
 export(nawt)

@@ -25,7 +25,7 @@ the estimation.
 \examples{
 # Simulation from Kang and Shafer (2007) and Imai and Ratkovic (2014)
 tau <- 10
-set.seed(123456)
+set.seed(12345)
 n <- 1000
 X <- matrix(rnorm(n * 4, mean = 0, sd = 1), nrow = n, ncol = 4)
 prop <- 1 / (1 + exp(X[, 1] - 0.5 * X[, 2] + 0.25 * X[, 3] + 0.1 * X[, 4]))
