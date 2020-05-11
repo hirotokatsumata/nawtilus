@@ -42,8 +42,8 @@ plot_balance <- function (result, standardize = TRUE, absolute = TRUE, threshold
 	} else {
 		legendx <- mindiff * 1.1
 	}
-	cols0 <- c(rgb(39/ 255, 139/ 255, 210 / 255), 
-						 rgb(220 / 255, 50 / 255, 46 / 255))
+	cols0 <- c(rgb(0 / 255, 184 / 255, 148 / 255), 
+						 rgb(225 / 255, 112 / 255, 85 / 255))
 	cols <- rep(cols0, each = 2)
 	pchs <- rep(c(21, 24), 2)
 	oldpar <- par(no.readonly = TRUE)
