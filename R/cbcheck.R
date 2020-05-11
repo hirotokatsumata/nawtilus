@@ -1,6 +1,6 @@
 #' Summarize and Plot Covariate Balance
 #'
-#' Summarize and plot covariate balance between treatment and control groups 
+#' Summarizes and plots covariate balance between treatment and control groups 
 #'   before and after the navigated weighting.
 #'
 #' @export

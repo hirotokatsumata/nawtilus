@@ -40,7 +40,7 @@ A matrix whose rows are the covariates and columns are the
   variables are not standardized.
 }
 \description{
-Summarize and plot covariate balance between treatment and control groups 
+Summarizes and plots covariate balance between treatment and control groups 
   before and after the navigated weighting.
 }
 \examples{

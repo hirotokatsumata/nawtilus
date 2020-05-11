@@ -1,6 +1,49 @@
-## Plot weights for the score omega(hat(pi)) and estimated propensity score distribution
+#' Plot weights for propensity score estimation in the navigated weighting
+#'
+#' Plots weight of each observation in the score condition \eqn{\omega(\pi)} for
+#'   propensity score estimation and estimated propensity score distribution 
+#'   in the navigated weighting.
+#'
+#' The x-axis shows estimated propensity scores, and the y-axis shows weight of 
+#' each observation in propensity score estimation. ADDITIONAL DETAILS FOR ATE.
+#'
+#' @export
+#'
+#' @param object an object of class “nawt”, usually, a result of a call to \code{\link{nawt}}.
+#' @param relative a logical value indicating whether or not relative weights 
+#'   standardized to have mean one are shown.
+#'
+#' @author Hiroto Katsumata.
+#' 
+#' @examples
+#' # Simulation from Kang and Shafer (2007) and Imai and Ratkovic (2014)
+#' tau <- 10
+#' set.seed(12345)
+#' n <- 1000
+#' X <- matrix(rnorm(n * 4, mean = 0, sd = 1), nrow = n, ncol = 4)
+#' prop <- 1 / (1 + exp(X[, 1] - 0.5 * X[, 2] + 0.25 * X[, 3] + 0.1 * X[, 4]))
+#' treat <- rbinom(n, 1, prop)
+#' y <- 210 + 27.4 * X[, 1] + 13.7 * X[, 2] + 13.7 * X[, 3] + 13.7 * X[, 4] + 
+#'      tau * treat + rnorm(n)
+#'
+#' # Data frame and formulas for propensity score estimation
+#' df <- data.frame(X, treat, y)
+#' colnames(df) <- c("x1", "x2", "x3", "x4", "treat", "y")
+#' formula_c <- as.formula(treat ~ x1 + x2 + x3 + x4)
+#'
+#' # Power weighting function with alpha = 2
+#' # ATT estimation
+#' fitatt <- nawt(formula = formula_c, outcome = "y", estimand = "ATT", 
+#'                method = "score", data = df, alpha = 2)
+#' plot_omega(fitatt)
+#'
+#' # ATE estimation
+#' fitate <- nawt(formula = formula_c, outcome = "y", estimand = "ATE", 
+#'                method = "score", data = df, alpha = 2)
+#' plot_omega(fitate)
 plot_omega <- function (object, relative = TRUE) {
 	omega <- object$omega
+	limx <- c(0, 1)
 	if (relative == TRUE) {
 		ylab <- expression(paste("Relative weights for the score ", omega(hat(pi))))
 	} else {
@@ -8,7 +51,6 @@ plot_omega <- function (object, relative = TRUE) {
 	}
 	if (object$estimand != "ATE") {
 		dens <- density(object$ps, from = 0, to = 1)
-		limx <- c(0, 1)
 		plot(dens,
 				 xlim = limx,
 				 ylim = c(0, max(dens$y)),
@@ -18,7 +60,6 @@ plot_omega <- function (object, relative = TRUE) {
 	} else { # ATE
 		dens1 <- density(object$ps[1, ], from = 0, to = 1)
 		dens2 <- density(object$ps[2, ], from = 0, to = 1)
-		limx <- c(0, 1)
 		plot(dens1,
 				 lty = 1,
 				 col = rgb(0.5, 0.5, 0.5),
@@ -68,7 +109,7 @@ plot_omega <- function (object, relative = TRUE) {
 				 xlab = expression(paste("Estimated propensity score ", hat(pi))), 
 				 ylab = ylab,
 				 axes = FALSE)
-	} else { # ATT and MO
+	} else { # ATT, MO,  and ATEcombined
 		if (relative == TRUE) {
 			omega <- omega / mean(omega)
 		}
@@ -90,7 +131,20 @@ plot_omega <- function (object, relative = TRUE) {
 				 ylab = ylab,
 				 axes = FALSE)
 	}
+	if (length(unique(object$omega)) == 1) {
+		legendy <- 0.2
+	} else {
+		legendy <- max(omegat, omegac)
+	}
 	axis(side = 1)
 	axis(side = 2)
 	box(bty = "u")
+	legend(x = 0.1, y = legendy,
+				 legend = c("treat", "control"), 
+				 col = c(rgb(220 / 255, 50 / 255, 46 / 255, alpha = 0.75), 
+				 				 rgb(39/ 255, 139/ 255, 210 / 255, alpha = 0.75)), 
+				 pch = 21, yjust = 0.55, pt.lwd = 1.5, cex = 1.1,
+				 x.intersp = 0.3, y.intersp = 0.3,
+				 bty = "n",
+				 bg = "transparent")
 }
