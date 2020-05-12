@@ -36,8 +36,9 @@ to be used in the fitting process. Should be NULL or a numeric vector.}
 
 \item{alpha}{a positive value for an exponent in a power weighting function.
 Default is 2. Set to 0 to use the standard logistic regression for  
-propensity score estimation. Note that \code{nawt} with \eqn{m / 2} where 
-\eqn{0 \le m \le 10} runs substantially faster than with any other values.}
+propensity score estimation. Note that \code{nawt} with alpha being one of the
+pre-specified values (0, 0.5, 1, \ldots, 5) runs substantially faster than 
+with any other values, and the latter case requires \code{hypergeo} package.}
 
 \item{twostep}{a logical value indicating whether to use a two step estimator
 when \code{method = "both"}. Default is \code{TRUE}. Set to \code{FALSE} 

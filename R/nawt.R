@@ -34,8 +34,9 @@
 #'   to be used in the fitting process. Should be NULL or a numeric vector.
 #' @param alpha a positive value for an exponent in a power weighting function.
 #'   Default is 2. Set to 0 to use the standard logistic regression for  
-#'   propensity score estimation. Note that \code{nawt} with \eqn{m / 2} where 
-#'   \eqn{0 \le m \le 10} runs substantially faster than with any other values.
+#'   propensity score estimation. Note that \code{nawt} with alpha being one of the
+#'   pre-specified values (0, 0.5, 1, \ldots, 5) runs substantially faster than 
+#'   with any other values, and the latter case requires \code{hypergeo} package.
 #' @param twostep a logical value indicating whether to use a two step estimator
 #'   when \code{method = "both"}. Default is \code{TRUE}. Set to \code{FALSE} 
 #'   to use a continuously-updating GMM estimator, which is substantially
@@ -211,6 +212,13 @@ nawt <- function (formula, outcome, estimand = "ATT", method = "score",
 	}
 	if (min(clevel) <= 0 | max(clevel) >= 1) {
 		stop("clevel must be between 0 and 1")
+	}
+	if (method != "cb" & (alpha %in% c(1:10 / 2)) == 0) {
+		if (!requireNamespace("hypergeo", quietly = TRUE)) {
+			stop("Package \"hypergeo\" needed for this function to work when alpha is
+						not one of the prespecified values. Please install it.",
+					 call. = FALSE)
+		}
 	}
 	call <- match.call()
 	if (message == TRUE) {
