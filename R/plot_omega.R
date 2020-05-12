@@ -20,6 +20,8 @@
 #' @export
 #'
 #' @param object an object of class “nawt”, usually, a result of a call to \code{\link{nawt}}.
+#'   Note that it cannot be used when the \code{object} is a result of a call to
+#'   \code{nawt} where \code{method = "both"} and \code{twostep = FALSE}.
 #' @param relative a logical value indicating whether or not relative weights 
 #'   standardized to have mean one are shown.
 #'
