@@ -19,7 +19,17 @@ Plots weight of each observation in the score condition \eqn{\omega(\pi)} for
 }
 \details{
 The x-axis shows estimated propensity scores, and the y-axis shows weight of 
-each observation in propensity score estimation. ADDITIONAL DETAILS FOR ATE.
+each observation in propensity score estimation. When \code{estimand = "ATE"},
+the navigated weighting estimates two propensity scores for each observation;
+one for estimating the average of the potential outcomes with treatment and  
+the other for estimating the average of the potential outcomes without 
+treatment. Therefore, there are two weighting functions for estimating two 
+sets of propensity scores and two propensity score distributions. Points 
+rising to the right and a solid curve represent the weighting functions and 
+distribution of propensity scores for estimating the average of the potential
+outcomes without treatment whereas Points rising to the left and a dashed 
+curve represent the weighting functions and distribution of propensity scores
+for estimating the average of the potential outcomes with treatment.
 }
 \examples{
 # Simulation from Kang and Shafer (2007) and Imai and Ratkovic (2014)

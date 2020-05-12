@@ -48,7 +48,6 @@ plot_balance <- function (result, standardize = TRUE, absolute = TRUE, threshold
 	pchs <- rep(c(21, 24), 2)
 	oldpar <- par(no.readonly = TRUE)
 	on.exit(par(oldpar), add = TRUE)
-#	par(xpd = TRUE)
 	plot(x = result$diff.un, 
 			 y = result$covariates,
 			 pch = result$type,
@@ -69,7 +68,6 @@ plot_balance <- function (result, standardize = TRUE, absolute = TRUE, threshold
 			 xlab = diff, ylab = "",
 			 yaxt = "n",
 			 main = "Covariate balance")
-#	par(xpd = FALSE)
 	abline(v = 0, col = "grey10", lty = "solid")
 	abline(v = threshold, col = "grey50", lty = "dashed", lwd = 1.2)
 	axis(2, at = c(1:nrow(result)), labels = result$covariates, las = 1)

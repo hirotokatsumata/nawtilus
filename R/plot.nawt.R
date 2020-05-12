@@ -48,6 +48,8 @@
 plot.nawt <- function (x, ...) {
 	maxweight <- max(c(x$naive_weights, x$weights))
 	minweight <- min(c(x$naive_weights, x$weights))
+	oldpar <- par(no.readonly = TRUE)
+	on.exit(par(oldpar), add = TRUE)
 	par(pty = "s")
 	plot(x = x$naive_weights[x$treat == 0], 
 			 y = x$weights[x$treat == 0], 
