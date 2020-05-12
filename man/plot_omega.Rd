@@ -59,6 +59,18 @@ plot_omega(fitatt)
 fitate <- nawt(formula = formula_c, outcome = "y", estimand = "ATE", 
                method = "score", data = df, alpha = 2)
 plot_omega(fitate)
+
+# Use method = "both"
+# Two-step estimation
+fitateb2s <- nawt(formula = formula_c, outcome = "y", estimand = "ATE", 
+                  method = "both", data = df, alpha = 2, twostep = TRUE)
+plot_omega(fitateb2s)
+
+# Continuously-updating GMM estimation
+\dontrun{
+fitatebco <- nawt(formula = formula_c, outcome = "y", estimand = "ATE", 
+                  method = "both", data = df, alpha = 2, twostep = FALSE)
+plot_omega(fitatebco) # error}
 }
 \author{
 Hiroto Katsumata.

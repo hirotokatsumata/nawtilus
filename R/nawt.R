@@ -37,7 +37,7 @@
 #'   propensity score estimation. Note that \code{nawt} with alpha being one of the
 #'   pre-specified values (0, 0.5, 1, \ldots, 5) runs substantially faster than 
 #'   with any other values, and the latter case requires \code{hypergeo} package.
-#' @param twostep a logical value indicating whether to use a two step estimator
+#' @param twostep a logical value indicating whether to use a two-step estimator
 #'   when \code{method = "both"}. Default is \code{TRUE}. Set to \code{FALSE} 
 #'   to use a continuously-updating GMM estimator, which is substantially
 #'   computationally intensive.
