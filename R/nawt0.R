@@ -4,10 +4,10 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 	scratio <- NULL
 	outcome0 <- outcome
 	outcome <- c(data[, outcome])
-	formula <- as.formula(formula)
-	model <- model.frame(formula, data = data)
-	missing <- c(model.extract(model, "response"))
-	x <- as.matrix(model.matrix(formula, model))
+	formula <- stats::as.formula(formula)
+	model <- stats::model.frame(formula, data = data)
+	missing <- c(stats::model.extract(model, "response"))
+	x <- as.matrix(stats::model.matrix(formula, model))
 	N <- nrow(data)
 	if (setequal(missing, c(0, 1)) == FALSE) {
 		stop("treatment (missingness) must be binary (0, 1)")
@@ -21,38 +21,38 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 	weights <- weights / mean(weights)
 	N1 <- sum(missing * weights)
 	names.x <- colnames(x)
-  names.x[apply(x, 2, sd) == 0] <- "(Intercept)"
+  names.x[apply(x, 2, stats::sd) == 0] <- "(Intercept)"
   x0 <- x
   svdx <- svd(x)
   x <- svdx$u
-	result.vanilla <- 
-		glm(formula = missing ~ -1 + x, family = quasibinomial, weights = weights)
+	result.vanilla <- stats::glm(formula = missing ~ -1 + x, 
+															 family = stats::quasibinomial, weights = weights)
 	est.weights <- numeric(N)
 	if (method == "cb") {
 		if (estimand == "ATE") {
 			initval1 <- init(result = result.vanilla, method = method, estimand = "MO", 
 											 missing = missing, x = x, alpha = 0, N = N)
 			result.vanilla2 <- 
-				glm(formula = I(1 - missing) ~ -1 + x, 
-						family = quasibinomial, weights = weights)
+				stats::glm(formula = I(1 - missing) ~ -1 + x, 
+									 family = stats::quasibinomial, weights = weights)
 			initval2 <- init(result = result.vanilla2, method = method, estimand = "MO",
 											 missing = 1 - missing, x = x, alpha = 0, N = N)
-			result1 <- optim(par = initval1, 
-					  					 fn = cbll, 
-					  					 gr = cbllgradient,
-			 			  				 method = "BFGS", 
-			 			  				 control = list(fnscale = -1, trace = FALSE), 
-			 			  				 hessian = FALSE,
-			 			  				 missing = missing, x = x, weights = weights, 
-			 			  				 estimand = "MO")
-			result2 <- optim(par = initval2, 
-					  					 fn = cbll, 
-					  					 gr = cbllgradient,
-			 			  				 method = "BFGS", 
-			 			  				 control = list(fnscale = -1, trace = FALSE), 
-			 			  				 hessian = FALSE,
-			 			  				 missing = 1 - missing, x = x, weights = weights, 
-			 			  				 estimand = "MO")
+			result1 <- stats::optim(par = initval1, 
+					  									fn = cbll, 
+					  									gr = cbllgradient,
+			 			  								method = "BFGS", 
+			 			  								control = list(fnscale = -1, trace = FALSE), 
+			 			  								hessian = FALSE,
+			 			  								missing = missing, x = x, weights = weights, 
+			 			  								estimand = "MO")
+			result2 <- stats::optim(par = initval2, 
+					  									fn = cbll, 
+					  									gr = cbllgradient,
+			 			  								method = "BFGS", 
+			 			  								control = list(fnscale = -1, trace = FALSE), 
+			 			  								hessian = FALSE,
+			 			  								missing = 1 - missing, x = x, weights = weights, 
+			 			  								estimand = "MO")
 			coef1 <- c(result1$par)
 			coef2 <- -c(result2$par)
 			coef <- rbind(coef1, coef2)
@@ -72,14 +72,14 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 			initval <- 
 				init(result = result.vanilla, method = method, estimand = estimand, 
 						 missing = missing, x = x, alpha = 0, N = N)
-			result <- optim(par = initval, 
-					  					fn = cbll, 
-					  					gr = cbllgradient,
-			 			  				method = "BFGS", 
-			 			  				control = list(fnscale = -1, trace = FALSE), 
-			 			  				hessian = FALSE,
-			 			  				missing = missing, x = x, weights = weights, 
-			 			  				estimand = estimand)
+			result <- stats::optim(par = initval, 
+					  								 fn = cbll, 
+					  								 gr = cbllgradient,
+			 			  							 method = "BFGS", 
+			 			  							 control = list(fnscale = -1, trace = FALSE), 
+			 			  							 hessian = FALSE,
+			 			  							 missing = missing, x = x, weights = weights, 
+			 			  							 estimand = estimand)
 			coef <- c(result$par)
 			converged <- as.logical(1 - result$convergence)
 			ps <- c(logistic(x %*% coef))
@@ -100,27 +100,27 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 		if (estimand == "ATE") {
 			initval1 <- init(result = result.vanilla, method = method, estimand = "MO", 
 											 missing = missing, x = x, alpha = 0, N = N)
-			result.vanilla2 <- 
-				glm(formula = I(1 - missing) ~ -1 + x, 
-						family = quasibinomial, weights = weights)
+			result.vanilla2 <- stats::glm(formula = I(1 - missing) ~ -1 + x, 
+																		family = stats::quasibinomial, 
+																		weights = weights)
 			initval2 <- init(result = result.vanilla2, method = method, estimand = "MO", 
 											 missing = 1 - missing, x = x, alpha = 0, N = N)
-			result1 <- optim(par = initval1, 
-					  					 fn = navigatedll, 
-					  					 gr = navigatedgradient,
-			 			  				 method = "BFGS", 
-			 			  				 control = list(fnscale = -1, trace = FALSE), 
-			 			  				 hessian = FALSE,
-			 			  				 missing = missing, x = x, weights = weights, 
-			 			  				 estimand = "MO", alpha = alpha)
-			result2 <- optim(par = initval2, 
-					  					 fn = navigatedll, 
-					  					 gr = navigatedgradient,
-			 			  				 method = "BFGS", 
-			 			  				 control = list(fnscale = -1, trace = FALSE), 
-			 			  				 hessian = FALSE,
-			 			  				 missing = 1 - missing, x = x, weights = weights, 
-			 			  				 estimand = "MO", alpha = alpha)
+			result1 <- stats::optim(par = initval1, 
+					  									fn = navigatedll, 
+					  									gr = navigatedgradient,
+			 			  								method = "BFGS", 
+			 			  								control = list(fnscale = -1, trace = FALSE), 
+			 			  								hessian = FALSE,
+			 			  								missing = missing, x = x, weights = weights, 
+			 			  								estimand = "MO", alpha = alpha)
+			result2 <- stats::optim(par = initval2, 
+					  									fn = navigatedll, 
+					  									gr = navigatedgradient,
+			 			  								method = "BFGS", 
+			 			  								control = list(fnscale = -1, trace = FALSE), 
+			 			  								hessian = FALSE,
+			 			  								missing = 1 - missing, x = x, weights = weights, 
+			 			  								estimand = "MO", alpha = alpha)
 			coef1 <- c(result1$par)
 			coef2 <- -c(result2$par)
 			coef <- rbind(coef1, coef2)
@@ -140,14 +140,14 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 			initval <- 
 				init(result = result.vanilla, method = method, estimand = estimand, 
 						 missing = missing, x = x, alpha = alpha, N = N)
-			result <- optim(par = initval, 
-					  					fn = navigatedll, 
-					  					gr = navigatedgradient,
-	  				  				method = "BFGS", 
-	  				  				control = list(fnscale = -1, trace = FALSE), 
-	  				  				hessian = FALSE,
-	  				  				missing = missing, x = x, weights = weights, 
-	  				  				estimand = estimand, alpha = alpha)
+			result <- stats::optim(par = initval, 
+					  								 fn = navigatedll, 
+					  								 gr = navigatedgradient,
+	  				  							 method = "BFGS", 
+	  				  							 control = list(fnscale = -1, trace = FALSE), 
+	  				  							 hessian = FALSE,
+	  				  							 missing = missing, x = x, weights = weights, 
+	  				  							 estimand = estimand, alpha = alpha)
 			coef <- c(result$par)
 			converged <- as.logical(1 - result$convergence)
 			ps <- c(logistic(x %*% coef))
@@ -170,26 +170,27 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 			if (estimand == "ATE") {
 				initval1 <- init(result = result.vanilla, method = method, estimand = "MO", 
 												 missing = missing, x = x, alpha = alpha, N = N)
-				result.vanilla2 <- glm(formula = I(1 - missing) ~ -1 + x, 
-															 family = quasibinomial, weights = weights)
+				result.vanilla2 <- stats::glm(formula = I(1 - missing) ~ -1 + x, 
+															 				family = stats::quasibinomial, 
+															 				weights = weights)
 				initval2 <- init(result = result.vanilla2, method = method, estimand = "MO",
 												 missing = 1 - missing, x = x, alpha = alpha, N = N)
-				result1 <- optim(par = initval1, 
-						  					 fn = gmm, 
-				 			  				 method = "BFGS", 
-				 			  				 control = list(fnscale = 1, trace = FALSE), 
-				 			  				 hessian = FALSE,
-				 			  				 missing = missing, x = x, 
-				 			  				 N = N, N1 = N1, weights = weights, 
-				 			  				 estimand = "MO", alpha = alpha)
-				result2 <- optim(par = initval2, 
-						  					 fn = gmm, 
-				 			  				 method = "BFGS", 
-				 			  				 control = list(fnscale = 1, trace = FALSE), 
-				 			  				 hessian = FALSE,
-				 			  				 missing = 1 - missing, x = x, 
-				 			  				 N = N, N1 = N - N1, weights = weights, 
-				 			  				 estimand = "MO", alpha = alpha)
+				result1 <- stats::optim(par = initval1, 
+						  									fn = gmm, 
+				 			  								method = "BFGS", 
+				 			  								control = list(fnscale = 1, trace = FALSE), 
+				 			  								hessian = FALSE,
+				 			  								missing = missing, x = x, 
+				 			  								N = N, N1 = N1, weights = weights, 
+				 			  								estimand = "MO", alpha = alpha)
+				result2 <- stats::optim(par = initval2, 
+						  									fn = gmm, 
+				 			  								method = "BFGS", 
+				 			  								control = list(fnscale = 1, trace = FALSE), 
+				 			  								hessian = FALSE,
+				 			  								missing = 1 - missing, x = x, 
+				 			  								N = N, N1 = N - N1, weights = weights, 
+				 			  								estimand = "MO", alpha = alpha)
 				coef1 <- c(result1$par)
 				coef2 <- -c(result2$par)
 				coef <- rbind(coef1, coef2)
@@ -208,14 +209,14 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 				initval <- 
 					init(result = result.vanilla, method = method, estimand = estimand, 
 							 missing = missing, x = x, alpha = alpha, N = N)
-				result <- optim(par = initval, 
-						  					fn = gmm, 
-		  				  				method = "BFGS", 
-		  				  				control = list(fnscale = 1, trace = FALSE), 
-		  				  				hessian = FALSE,
-		  				  				missing = missing, x = x, 
-		  				  				N = N, N1 = N1, weights = weights, 
-		  				  				estimand = estimand, alpha = alpha)
+				result <- stats::optim(par = initval, 
+						  								 fn = gmm, 
+		  				  							 method = "BFGS", 
+		  				  							 control = list(fnscale = 1, trace = FALSE), 
+		  				  							 hessian = FALSE,
+		  				  							 missing = missing, x = x, 
+		  				  							 N = N, N1 = N1, weights = weights, 
+		  				  							 estimand = estimand, alpha = alpha)
 				coef <- c(result$par)
 				converged <- as.logical(1 - result$convergence)
 				ps <- c(logistic(x %*% coef))
@@ -238,47 +239,48 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 				initvalscore1 <- 
 					init(result = result.vanilla, method = "score", estimand = "MO", 
 							 missing = missing, x = x, alpha = alpha, N = N)
-				resultscore1 <- optim(par = initvalscore1, 
-						  								fn = navigatedll, 
-						  								gr = navigatedgradient,
-		  				  							method = "BFGS", 
-		  				  							control = list(fnscale = -1, trace = FALSE), 
-		  				  							hessian = FALSE,
-		  				  							missing = missing, x = x, weights = weights, 
-		  				  							estimand = "MO", alpha = alpha)
+				resultscore1 <- stats::optim(par = initvalscore1, 
+						  											 fn = navigatedll, 
+						  											 gr = navigatedgradient,
+		  				  										 method = "BFGS", 
+		  				  										 control = list(fnscale = -1, trace = FALSE), 
+		  				  										 hessian = FALSE,
+		  				  										 missing = missing, x = x, weights = weights, 
+		  				  										 estimand = "MO", alpha = alpha)
 				initvalcb1 <- init(result = result.vanilla, method = "cb", estimand = "MO", 
 													 missing = missing, x = x, alpha = 0, N = N)
-				resultcb1 <- optim(par = initvalcb1, 
-						  						 fn = cbll, 
-						  						 gr = cbllgradient,
-				 			  					 method = "BFGS", 
-				 			  					 control = list(fnscale = -1, trace = FALSE), 
-				 			  					 hessian = FALSE,
-				 			  					 missing = missing, x = x, weights = weights, 
-				 			  					 estimand = "MO")
-				result.vanilla2 <- glm(formula = I(1 - missing) ~ -1 + x, 
-															 family = quasibinomial, weights = weights)
+				resultcb1 <- stats::optim(par = initvalcb1, 
+						  										fn = cbll, 
+						  										gr = cbllgradient,
+				 			  									method = "BFGS", 
+				 			  									control = list(fnscale = -1, trace = FALSE), 
+				 			  									hessian = FALSE,
+				 			  									missing = missing, x = x, weights = weights, 
+				 			  									estimand = "MO")
+				result.vanilla2 <- stats::glm(formula = I(1 - missing) ~ -1 + x, 
+																			family = stats::quasibinomial, 
+																			weights = weights)
 				initvalscore2 <- 
 					init(result = result.vanilla2, method = "score", estimand = "MO", 
 							 missing = missing, x = x, alpha = alpha, N = N)
-				resultscore2 <- optim(par = initvalscore2, 
-						  								fn = navigatedll, 
-						  								gr = navigatedgradient,
-		  				  							method = "BFGS", 
-		  				  							control = list(fnscale = -1, trace = FALSE), 
-		  				  							hessian = FALSE,
-		  				  							missing = 1 - missing, x = x, weights = weights, 
-		  				  							estimand = "MO", alpha = alpha)
+				resultscore2 <- stats::optim(par = initvalscore2, 
+						  											 fn = navigatedll, 
+						  											 gr = navigatedgradient,
+		  				  										 method = "BFGS", 
+		  				  										 control = list(fnscale = -1, trace = FALSE), 
+		  				  										 hessian = FALSE,
+		  				  										 missing = 1 - missing, x = x, weights = weights, 
+		  				  										 estimand = "MO", alpha = alpha)
 				initvalcb2 <- init(result = result.vanilla2, method = "cb", estimand = "MO", 
 													 missing = missing, x = x, alpha = 0, N = N)
-				resultcb2 <- optim(par = initvalcb2, 
-						  						 fn = cbll, 
-						  						 gr = cbllgradient,
-				 			  					 method = "BFGS", 
-				 			  					 control = list(fnscale = -1, trace = FALSE), 
-				 			  					 hessian = FALSE,
-				 			  					 missing = 1 - missing, x = x, weights = weights, 
-				 			  					 estimand = "MO")
+				resultcb2 <- stats::optim(par = initvalcb2, 
+						  										fn = cbll, 
+						  										gr = cbllgradient,
+				 			  									method = "BFGS", 
+				 			  									control = list(fnscale = -1, trace = FALSE), 
+				 			  									hessian = FALSE,
+				 			  									missing = 1 - missing, x = x, weights = weights, 
+				 			  									estimand = "MO")
 				ps1s <- c(logistic(x %*% c(resultscore1$par)))
 				ps1c <- c(logistic(x %*% c(resultcb1$par)))
 				ps2s <- c(logistic(x %*% c(-resultscore2$par)))
@@ -298,10 +300,10 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 												 outcome = outcome, est = 0, N = N, N1 = N1, 
 												 weights = weights, 
 												 estimand = "MO", est.weights = rep(0 , N))
-				scoreinvv1 <- 1 / apply(x0, 2, sd) %*% sqrt(diag(varcovscore1)[1:ncol(x)])
-				cbinvv1 <- 1 / apply(x0, 2, sd) %*% sqrt(diag(varcovcb1)[1:ncol(x)])
-				scoreinvv2 <- 1 / apply(x0, 2, sd) %*% sqrt(diag(varcovscore2)[1:ncol(x)])
-				cbinvv2 <- 1 / apply(x0, 2, sd) %*% sqrt(diag(varcovcb2)[1:ncol(x)])
+				scoreinvv1 <- 1 / apply(x0, 2, stats::sd) %*% sqrt(diag(varcovscore1)[1:ncol(x)])
+				cbinvv1 <- 1 / apply(x0, 2, stats::sd) %*% sqrt(diag(varcovcb1)[1:ncol(x)])
+				scoreinvv2 <- 1 / apply(x0, 2, stats::sd) %*% sqrt(diag(varcovscore2)[1:ncol(x)])
+				cbinvv2 <- 1 / apply(x0, 2, stats::sd) %*% sqrt(diag(varcovcb2)[1:ncol(x)])
 				scratio1 <- c(scoreinvv1 / (scoreinvv1 + cbinvv1))
 				scratio2 <- c(scoreinvv2 / (scoreinvv2 + cbinvv2))
 				scratio <- c(scratio1, scratio2)
@@ -309,22 +311,22 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 											c(resultcb1$par) * (1 - scratio1)
 				initval2 <- c(resultscore2$par) * scratio2 + 
 											c(resultcb2$par) * (1 - scratio2)
-				result1 <- optim(par = initval1, 
-						  					 fn = bothll,
-						  					 gr = bothllgradient, 
-		  				  				 method = "BFGS", 
-		  				  				 control = list(fnscale = -1, trace = FALSE), 
-		  				  				 hessian = FALSE,
-		  				  				 missing = missing, x = x, weights = weights, 
-		  				  				 estimand = "MO", alpha = alpha, scratio = scratio1)
-				result2 <- optim(par = initval2, 
-						  					 fn = bothll,
-						  					 gr = bothllgradient, 
-		  				  				 method = "BFGS", 
-		  				  				 control = list(fnscale = -1, trace = FALSE), 
-		  				  				 hessian = FALSE,
-		  				  				 missing = 1 - missing, x = x, weights = weights, 
-		  				  				 estimand = "MO", alpha = alpha, scratio = scratio2)
+				result1 <- stats::optim(par = initval1, 
+						  									fn = bothll,
+						  									gr = bothllgradient, 
+		  				  								method = "BFGS", 
+		  				  								control = list(fnscale = -1, trace = FALSE), 
+		  				  								hessian = FALSE,
+		  				  								missing = missing, x = x, weights = weights, 
+		  				  								estimand = "MO", alpha = alpha, scratio = scratio1)
+				result2 <- stats::optim(par = initval2, 
+						  									fn = bothll,
+						  									gr = bothllgradient, 
+		  				  								method = "BFGS", 
+		  				  								control = list(fnscale = -1, trace = FALSE), 
+		  				  								hessian = FALSE,
+		  				  								missing = 1 - missing, x = x, weights = weights, 
+		  				  								estimand = "MO", alpha = alpha, scratio = scratio2)
 				coef1 <- c(result1$par)
 				coef2 <- -c(result2$par)
 				coef <- rbind(coef1, coef2)
@@ -343,25 +345,25 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 				initvalscore <- 
 					init(result = result.vanilla, method = "score", estimand = estimand, 
 							 missing = missing, x = x, alpha = alpha, N = N)
-				resultscore <- optim(par = initvalscore, 
-						  							 fn = navigatedll, 
-						  							 gr = navigatedgradient,
-		  				  						 method = "BFGS", 
-		  				  						 control = list(fnscale = -1, trace = FALSE), 
-		  				  						 hessian = TRUE,
-		  				  						 missing = missing, x = x, weights = weights, 
-		  				  						 estimand = estimand, alpha = alpha)
+				resultscore <- stats::optim(par = initvalscore, 
+						  											fn = navigatedll, 
+						  											gr = navigatedgradient,
+		  				  										method = "BFGS", 
+		  				  										control = list(fnscale = -1, trace = FALSE), 
+		  				  										hessian = TRUE,
+		  				  										missing = missing, x = x, weights = weights, 
+		  				  										estimand = estimand, alpha = alpha)
 				initvalcb <- 
 					init(result = result.vanilla, method = "cb", estimand = estimand, 
 							 missing = missing, x = x, alpha = 0, N = N)
-				resultcb <- optim(par = initvalcb, 
-						  						fn = cbll, 
-						  						gr = cbllgradient,
-				 			  					method = "BFGS", 
-				 			  					control = list(fnscale = -1, trace = FALSE), 
-				 			  					hessian = TRUE,
-				 			  					missing = missing, x = x, weights = weights, 
-				 			  					estimand = estimand)
+				resultcb <- stats::optim(par = initvalcb, 
+						  									 fn = cbll, 
+						  									 gr = cbllgradient,
+				 			  								 method = "BFGS", 
+				 			  								 control = list(fnscale = -1, trace = FALSE), 
+				 			  								 hessian = TRUE,
+				 			  								 missing = missing, x = x, weights = weights, 
+				 			  								 estimand = estimand)
 				pssc <- c(logistic(x %*% c(resultscore$par)))
 				pscb <- c(logistic(x %*% c(resultcb$par)))
 				varcovscore <- navigatedV(missing = missing, ps = pssc, x = x0, 
@@ -371,18 +373,18 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 				varcovcb <- cbV(missing = missing, ps = pscb, x = x0, outcome = outcome, 
 												est = 0, N = N, N1 = N1, weights = weights, 
 												estimand = "MO", est.weights = rep(0 , N))
-				scoreinvv <- 1 / apply(x0, 2, sd) %*% sqrt(diag(varcovscore)[1:ncol(x)])
-				cbinvv <- 1 / apply(x0, 2, sd) %*% sqrt(diag(varcovcb)[1:ncol(x)])
+				scoreinvv <- 1 / apply(x0, 2, stats::sd) %*% sqrt(diag(varcovscore)[1:ncol(x)])
+				cbinvv <- 1 / apply(x0, 2, stats::sd) %*% sqrt(diag(varcovcb)[1:ncol(x)])
 				scratio <- c(scoreinvv / (scoreinvv + cbinvv))
 				initval <- c(resultscore$par) * scratio + c(resultcb$par) * (1 - scratio)
-				result <- optim(par = initval, 
-						  					fn = bothll,
-						  					gr = bothllgradient, 
-		  				  				method = "BFGS", 
-		  				  				control = list(fnscale = -1, trace = FALSE), 
-		  				  				hessian = FALSE,
-		  				  				missing = missing, x = x, weights = weights, 
-		  				  				estimand = estimand, alpha = alpha, scratio = scratio)
+				result <- stats::optim(par = initval, 
+						  								 fn = bothll,
+						  								 gr = bothllgradient, 
+		  				  							 method = "BFGS", 
+		  				  							 control = list(fnscale = -1, trace = FALSE), 
+		  				  							 hessian = FALSE,
+		  				  							 missing = missing, x = x, weights = weights, 
+		  				  							 estimand = estimand, alpha = alpha, scratio = scratio)
 				coef <- c(result$par)
 				converged <- as.logical(1 - result$convergence)
 				ps <- c(logistic(x %*% coef))

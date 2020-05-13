@@ -36,8 +36,8 @@ summary.nawt <- function (object, ...) {
 	coef.table <- cbind(as.vector(c(object$est, coef)),
 											as.vector(se[c(k + 1, 1:k)]),
 											as.vector(c(object$est, coef) / se[c(k + 1, 1:k)]),
-											as.vector(2 - 2 * pnorm(abs(c(object$est, coef) / 
-																										se[c(k + 1, 1:k)]))))
+											as.vector(2 - 2 * stats::pnorm(abs(c(object$est, coef) / 
+																												 se[c(k + 1, 1:k)]))))
 	colnames(coef.table) <- c("Estimate", "Std. Error", "z value", "Pr(>|z|)")
 	if (object$estimand == "ATE") {
 		rownames(coef.table) <- c("est", object$names.x, object$names.x)
@@ -45,9 +45,9 @@ summary.nawt <- function (object, ...) {
 		rownames(coef.table) <- c("est", object$names.x)
 	}
 	pval <- coef.table[, 4]
-	symp <- symnum(pval, corr = FALSE,
-								 cutpoints = c(0, .001, .01, .05, .1, 1),
-								 symbols = c("***", "**", "*", ".", " "))
+	symp <- stats::symnum(pval, corr = FALSE,
+												cutpoints = c(0, .001, .01, .05, .1, 1),
+												symbols = c("***", "**", "*", ".", " "))
 	coef.print <- data.frame(coef.table, as.vector(symp))
 	colnames(coef.print)[5] <- ""
 	if (object$estimand == "ATE") {

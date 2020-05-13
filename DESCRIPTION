@@ -3,7 +3,6 @@ Type: Package
 Title: Navigated Weighting for the Inverse Probability Weighting
 Version: 0.0.1.9000
 Authors@R: person("Hiroto", "Katsumata", email = "hrt.katsumata@gmail.com", role = c("aut", "cre"))
-Maintainer: The package maintainer <yourself@somewhere.net>
 Description: Implements the navigated weighting (NAWT), which improves the inverse 
     probability weighting by utilizing estimating equations suitable for a specific 
     pre-specified parameter of interest (e.g., the average treatment effects or the 

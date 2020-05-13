@@ -28,14 +28,14 @@ init <- function (result, method, estimand, missing, x, alpha, N) {
 														 method = method, alpha = -1 / 2, mintol = mintol, maxtol = maxtol)
 			weights <- (weights1 + weights2) / 2
 		}
-		coef <- c(glm(formula = missing ~ -1 + x, family = quasibinomial, weights = weights)$coef)
+		coef <- c(stats::glm(formula = missing ~ -1 + x, family = stats::quasibinomial, weights = weights)$coef)
 	} else { # ATT and MO
 		weights <- init.omega(lp = result$linear.predictors / 3, estimand = estimand, 
 													method = method, alpha = alpha, mintol = mintol, maxtol = maxtol)
-		result <- glm(formula = missing ~ -1 + x, family = quasibinomial, weights = weights)
+		result <- stats::glm(formula = missing ~ -1 + x, family = stats::quasibinomial, weights = weights)
 		weights <- init.omega(lp = result$linear.predictors * 2 / 3, estimand = estimand, 
 													method = method, alpha = alpha, mintol = mintol, maxtol = maxtol)
-		coef <- c(glm(formula = missing ~ -1 + x, family = quasibinomial, weights = weights)$coef)
+		coef <- c(stats::glm(formula = missing ~ -1 + x, family = stats::quasibinomial, weights = weights)$coef)
 	}
 	coef
 }

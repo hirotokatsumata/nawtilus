@@ -73,15 +73,15 @@
 #' cbcheck(fits0m, addcov = ~ x1 + x2 + x3 + x4)
 cbcheck <- function (object, addcov = NULL, standardize = TRUE, 
 										 plot = TRUE, absolute = TRUE, threshold = 0, sort = TRUE) {
-	formula <- as.formula(object$formula)
-	model <- model.frame(formula, data = object$data)
-	missing <- c(model.extract(model, "response"))
-	x <- as.matrix(model.matrix(formula, model))
+	formula <- stats::as.formula(object$formula)
+	model <- stats::model.frame(formula, data = object$data)
+	missing <- c(stats::model.extract(model, "response"))
+	x <- as.matrix(stats::model.matrix(formula, model))
 	w.original <- object$prior.weights
 	if (is.null(addcov) == 0) {
-		formula2 <- as.formula(addcov)
-		model2 <- model.frame(formula2, data = object$data)
-		x2 <- as.matrix(model.matrix(formula2, model2))
+		formula2 <- stats::as.formula(addcov)
+		model2 <- stats::model.frame(formula2, data = object$data)
+		x2 <- as.matrix(stats::model.matrix(formula2, model2))
 		colnamesx <- colnames(x)
 		colnamesx2 <- colnames(x2)[-1]
 		x <- as.matrix(cbind(x, x2[, -1]))

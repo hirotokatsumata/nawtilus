@@ -251,7 +251,7 @@ nawt <- function (formula, outcome, estimand = "ATT", method = "score",
 					c(result0$coefficients[1, ], result0$coefficients[2, ], result0$est)
 			}
 		}
-		result$varcov <- cov(result2)
+		result$varcov <- stats::cov(result2)
 		lower <- sort(result2[, ncol(result2)])[
 								floor(signif(B * (1 - clevel) / 2, digits = 5))]
 		upper <- sort(result2[, ncol(result2)])[
@@ -272,8 +272,8 @@ nawt <- function (formula, outcome, estimand = "ATT", method = "score",
 		result <- nawt0(formula = formula, outcome = outcome, estimand = estimand, 
 										method = method, data = data, weights = weights, 
 										alpha = alpha, twostep = twostep, varcov = TRUE)
-		cilength <- 
-			sqrt(diag(result$varcov)[nrow(result$varcov)]) * qnorm((1 + clevel) / 2)
+		cilength <- sqrt(diag(result$varcov)[nrow(result$varcov)]) * 
+									stats::qnorm((1 + clevel) / 2)
 		result$ci <- 
 			cbind(lower = result$est - cilength, upper = result$est + cilength)
 	}

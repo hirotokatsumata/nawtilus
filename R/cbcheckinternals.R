@@ -42,44 +42,44 @@ plot_balance <- function (result, standardize = TRUE, absolute = TRUE, threshold
 	} else {
 		legendx <- mindiff * 1.1
 	}
-	cols0 <- c(rgb(0 / 255, 184 / 255, 148 / 255), 
-						 rgb(225 / 255, 112 / 255, 85 / 255))
+	cols0 <- c(grDevices::rgb(0 / 255, 184 / 255, 148 / 255), 
+						 grDevices::rgb(225 / 255, 112 / 255, 85 / 255))
 	cols <- rep(cols0, each = 2)
 	pchs <- rep(c(21, 24), 2)
-	oldpar <- par(no.readonly = TRUE)
-	on.exit(par(oldpar), add = TRUE)
-	plot(x = result$diff.un, 
-			 y = result$covariates,
-			 pch = result$type,
-			 col = cols0[1],
-			 cex = 1.7,
-			 lwd = 2.2,
-			 xlim = c(mindiff, maxdiff),
-			 xlab = "", ylab = "",
-			 axes = FALSE)
-	par(new = TRUE)
-	plot(x = result$diff.adj, 
-			 y = result$covariates, 
-			 pch = result$type,
-			 col = cols0[2],
-			 cex = 1.7,
-			 lwd = 2.2,
-			 xlim = c(mindiff, maxdiff),
-			 xlab = diff, ylab = "",
-			 yaxt = "n",
-			 main = "Covariate balance")
-	abline(v = 0, col = "grey10", lty = "solid")
-	abline(v = threshold, col = "grey50", lty = "dashed", lwd = 1.2)
-	axis(2, at = c(1:nrow(result)), labels = result$covariates, las = 1)
-	par(xpd = TRUE)
+	oldpar <- graphics::par(no.readonly = TRUE)
+	on.exit(graphics::par(oldpar), add = TRUE)
+	graphics::plot(x = result$diff.un, 
+								 y = result$covariates,
+								 pch = result$type,
+								 col = cols0[1],
+								 cex = 1.7,
+								 lwd = 2.2,
+								 xlim = c(mindiff, maxdiff),
+								 xlab = "", ylab = "",
+								 axes = FALSE)
+	graphics::par(new = TRUE)
+	graphics::plot(x = result$diff.adj, 
+								 y = result$covariates, 
+								 pch = result$type,
+								 col = cols0[2],
+								 cex = 1.7,
+								 lwd = 2.2,
+								 xlim = c(mindiff, maxdiff),
+								 xlab = diff, ylab = "",
+								 yaxt = "n",
+								 main = "Covariate balance")
+	graphics::abline(v = 0, col = "grey10", lty = "solid")
+	graphics::abline(v = threshold, col = "grey50", lty = "dashed", lwd = 1.2)
+	graphics::axis(2, at = c(1:nrow(result)), labels = result$covariates, las = 1)
+	graphics::par(xpd = TRUE)
 	if (sort == FALSE) {
-		legendx <- par()$usr[2]
+		legendx <- graphics::par()$usr[2]
 	}
-	legend(x = legendx, y = 1,
-				 legend = c("Adjusted: continuous", "Adjusted: binary",
-				 						"Unadjusted: continuous", "Unadjusted: binary"), 
-				 col = cols[4:1], pch = pchs, pt.cex = 1.5, pt.lwd = 2, yjust = 0,
-				 x.intersp = 0.3, y.intersp = 0.3,
-				 bty = "n",
-				 bg = "transparent")
+	graphics::legend(x = legendx, y = 1,
+									 legend = c("Adjusted: continuous", "Adjusted: binary",
+									 						"Unadjusted: continuous", "Unadjusted: binary"), 
+									 col = cols[4:1], pch = pchs, pt.cex = 1.5, pt.lwd = 2, yjust = 0,
+									 x.intersp = 0.3, y.intersp = 0.3,
+									 bty = "n",
+									 bg = "transparent")
 }
