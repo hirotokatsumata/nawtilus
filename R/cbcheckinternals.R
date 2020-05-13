@@ -79,7 +79,7 @@ plot_balance <- function (result, standardize = TRUE, absolute = TRUE, threshold
 									 legend = c("Adjusted: continuous", "Adjusted: binary",
 									 						"Unadjusted: continuous", "Unadjusted: binary"), 
 									 col = cols[4:1], pch = pchs, pt.cex = 1.5, pt.lwd = 2, yjust = 0,
-									 x.intersp = 0.3, y.intersp = 0.3,
+									 x.intersp = 0.7, y.intersp = 0.9,
 									 bty = "n",
 									 bg = "transparent")
 }

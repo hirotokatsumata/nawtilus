@@ -137,7 +137,8 @@ plot_omega <- function (object, relative = TRUE) {
 									 											alpha = 0.3),
 									 xlim = limx,
 									 ylim = c(0, max(c(omega1, omega2))),
-									 xlab = expression(paste("Estimated propensity score ", hat(pi))), 
+									 xlab = expression(paste("Estimated propensity score ", 
+									 												 hat(pi))), 
 									 ylab = ylab,
 									 axes = FALSE)
 	} else { # ATT, MO,  and ATEcombined
@@ -160,7 +161,8 @@ plot_omega <- function (object, relative = TRUE) {
 									 											alpha = 0.3),
 									 xlim = limx,
 									 ylim = c(0, max(c(omegac, omegat))),
-									 xlab = expression(paste("Estimated propensity score ", hat(pi))), 
+									 xlab = expression(paste("Estimated propensity score ", 
+									 												 hat(pi))), 
 									 ylab = ylab,
 									 axes = FALSE)
 	}
@@ -179,7 +181,7 @@ plot_omega <- function (object, relative = TRUE) {
 									 				 grDevices::rgb(39/ 255, 139/ 255, 210 / 255, 
 									 				 								alpha = 0.75)), 
 									 pch = 21, yjust = 0.55, pt.lwd = 1.5, cex = 1.1,
-									 x.intersp = 0.3, y.intersp = 0.3,
+									 x.intersp = 0.7, y.intersp = 0.9,
 									 bty = "n",
 									 bg = "transparent")
 }
