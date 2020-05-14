@@ -16,6 +16,12 @@ also provides several tools for summarizing and checking the estimation
 results, including covariate balance check and an inverse probability
 weights plot.
 
+## How to cite
+
+<font size="4"> Hiroto Katsumata. 2020. nawtilus: An R package for the
+Navigated Weighting. R package version 0.0.1.9000.
+<https://github.com/hirotokatsumata/nawtilus/> </font>
+
 ## Installation
 
 <!--
@@ -118,7 +124,7 @@ par(mar = c(5.1, 5.1, 4.1, 2.1))
 cbcheck(fit)
 ```
 
-<img src="man/figures/README-cbcheck-1.png" width="600" height="600" style="display: block; margin: auto;" />
+<img src="man/figures/README-cbcheck-1.png" width="500" height="404.411764705882" style="display: block; margin: auto;" />
 
 ``` r
 par <- oldpar
@@ -132,7 +138,7 @@ those estimated by the standard logistic regression with
 plot(fit)
 ```
 
-<img src="man/figures/README-plot.nawt-1.png" width="600" height="600" style="display: block; margin: auto;" />
+<img src="man/figures/README-plot.nawt-1.png" width="500" height="500" style="display: block; margin: auto;" />
 
 Finally, check the weights used in propensity score estimation and
 distribution of the estimated propensity scores in the nawt with
@@ -142,4 +148,4 @@ distribution of the estimated propensity scores in the nawt with
 plot_omega(fit)
 ```
 
-<img src="man/figures/README-plot_omega-1.png" width="600" height="600" style="display: block; margin: auto;" />
+<img src="man/figures/README-plot_omega-1.png" width="500" height="500" style="display: block; margin: auto;" />
