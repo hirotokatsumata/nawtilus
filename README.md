@@ -119,15 +119,15 @@ Check covariate balance between the treatment and control groups before
 and after the nawt with `cbcheck()`.
 
 ``` r
-oldpar <- par(no.readonly = TRUE)
-par(mar = c(5.1, 5.1, 4.1, 2.1))
+oldpar <- par(no.readonly = TRUE) # Just for adjusting plot margins
+par(mar = c(5.1, 5.1, 4.1, 2.1)) # Just for adjusting plot margins
 cbcheck(fit)
 ```
 
 <img src="man/figures/README-cbcheck-1.png" width="500" height="404.411764705882" style="display: block; margin: auto;" />
 
 ``` r
-par <- oldpar
+par <- oldpar # Just for adjusting plot margins
 ```
 
 Let’s compare the inverse probability weights estimated by the nawt with
