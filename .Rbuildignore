@@ -2,3 +2,7 @@
 ^\.Rproj\.user$
 ^gmmjustfunctions\.R$
 ^README\.Rmd$
+^\.gitignore$
+^man/figures
+^\.git
+^LICENSE\.md$
