@@ -22,4 +22,5 @@ RoxygenNote: 6.1.1
 Depends: 
     R (>= 2.10)
 Suggests: 
-    hypergeo
+    hypergeo,
+    testthat
