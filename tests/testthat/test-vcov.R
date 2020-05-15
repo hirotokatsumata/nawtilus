@@ -2,6 +2,7 @@ context("Variance-covariance matrix")
 
 test_that("standard errors are correct", {
   skip_on_cran() # Takes long time
+  skip("skip: manually comment out to run the test") # Takes long time.
   # Simulation
   # True treatment effect is 10
   tau <- 10

@@ -17,10 +17,10 @@ fitted.}
 in \code{data}.}
 
 \item{estimand}{a character string specifying a parameter of interest. Choose
-"ATT" for the average treatment effect on treated estimation, "ATE" for the
-average treatment effect estimation, or "MO" for the average outcomes 
-estimation in missing outcome cases. You can choose "ATEcombined" for the  
-combined estimation for the average treatment effect estimation.}
+"ATT" for the average treatment effects on the treated estimation, "ATE"
+for the average treatment effects estimation, "ATC" for the average 
+outcomes estimation in missing outcome cases. You can choose "ATEcombined" 
+for the combined estimation for the average treatment effects estimation.}
 
 \item{method}{a character string specifying a type of weignting functions in 
 propensity score estimation (\eqn{\omega(\pi)}). Choose "score" for a power
@@ -119,7 +119,9 @@ score estimation. \code{nawt} can also be used to estimate average outcomes
 in missing outcome cases.
 }
 \details{
-DETAILS
+The treatment variable (or, missingness variable missing outcome cases) must 
+be binary and coded as 0 (for controlled or non-missing observations) and 1 
+(for treated or missing observations).
 }
 \examples{
 # Simulation from Kang and Shafer (2007) and Imai and Ratkovic (2014)

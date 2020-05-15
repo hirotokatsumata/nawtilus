@@ -9,7 +9,11 @@
 #' score estimation. \code{nawt} can also be used to estimate average outcomes
 #' in missing outcome cases.
 #'
-#' DETAILS 
+#' The treatment variable (or, missingness variable missing outcome cases) must 
+#' be binary and coded as 0 (for controlled or non-missing observations) and 1 
+#' (for treated or missing observations).
+#'
+#'
 #'
 #' @export
 #'
@@ -19,10 +23,11 @@
 #' @param outcome a character string specifying the name of outcome values
 #'   in \code{data}.
 #' @param estimand a character string specifying a parameter of interest. Choose
-#'   "ATT" for the average treatment effect on treated estimation, "ATE" for the
-#'   average treatment effect estimation, or "MO" for the average outcomes 
-#'   estimation in missing outcome cases. You can choose "ATEcombined" for the  
-#'   combined estimation for the average treatment effect estimation.
+#'   "ATT" for the average treatment effects on the treated estimation, "ATE"
+#'   for the average treatment effects estimation, "ATC" for the average 
+#    treatment effects on the controlled estimation, or "MO" for the average
+#'   outcomes estimation in missing outcome cases. You can choose "ATEcombined" 
+#'   for the combined estimation for the average treatment effects estimation.
 #' @param method a character string specifying a type of weignting functions in 
 #'   propensity score estimation (\eqn{\omega(\pi)}). Choose "score" for a power
 #'   function of propensity scores (need to specify the value for alpha), "cb"
@@ -200,8 +205,9 @@ nawt <- function (formula, outcome, estimand = "ATT", method = "score",
 									data, weights = NULL, alpha = 2, twostep = TRUE, 
 									boot = FALSE, B = 2000, clevel = 0.95, message = TRUE) {
 	# Check
-	if (estimand %in% c("ATE", "ATT", "MO", "ATEcombined") == 0) {
-		stop("estimand must be \"ATE\", \"ATT\", \"MO\", or \"ATEcombined\"")
+	if (estimand %in% c("ATE", "ATT", "ATC", "MO", "ATEcombined") == 0) {
+		stop("estimand must be \"ATE\", \"ATT\", \"ATC\", 
+				 \"MO\", or \"ATEcombined\"")
 	}
 	if (method %in% c("score", "cb", "both") == 0) {
 		stop("method must be \"score\", \"cb\", or \"both\"")

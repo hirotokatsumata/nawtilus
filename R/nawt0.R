@@ -10,7 +10,7 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 	x <- as.matrix(stats::model.matrix(formula, model))
 	N <- nrow(data)
 	if (setequal(missing, c(0, 1)) == FALSE) {
-		stop("treatment (missingness) must be binary (0, 1)")
+		stop("treatment (missingness) variable must be binary (0, 1)")
 	}
 	if (is.null(weights) == 1) {
 		weights <- rep(1, N)
@@ -25,6 +25,11 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
   x0 <- x
   svdx <- svd(x)
   x <- svdx$u
+	estimand0 <- estimand
+	if (estimand == "ATC") {
+		estimand <- "ATT"
+		missing <- 1 - missing
+	}
 	result.vanilla <- stats::glm(formula = missing ~ -1 + x, 
 															 family = stats::quasibinomial, weights = weights)
 	est.weights <- numeric(N)
@@ -434,6 +439,14 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 	names(naive_coef) <- names.x
 	KLd <- 
 		KLdivergence(weights = est.weights, estimand = estimand, missing = missing)
+	if (estimand0 == "ATC") {
+		estimand <- "ATC"
+		est <- -est
+		ps <- 1 - ps
+		coef <- -coef
+		naive_coef <- -naive_coef
+		missing <- 1 - missing
+	}
 	list(est = est,
 			 weights = est.weights,
 			 ps = ps,
