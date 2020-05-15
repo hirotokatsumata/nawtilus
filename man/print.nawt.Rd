@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.nawt.R
 \name{print.nawt}
 \alias{print.nawt}
-\title{Print Navigated Weighting Estimation}
+\title{Print navigated weighting estimation}
 \usage{
 \method{print}{nawt}(x, ...)
 }

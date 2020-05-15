@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.nawt.R
 \name{summary.nawt}
 \alias{summary.nawt}
-\title{Summarizing Navigated Weighting Estimation}
+\title{Summarizing navigated weighting estimation}
 \usage{
 \method{summary}{nawt}(object, ...)
 }

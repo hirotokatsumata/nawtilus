@@ -1,4 +1,4 @@
-#' Plot a Scattered Plot Comparing the Navigated Weighting and Naive Estimation
+#' Plot a scattered plot comparing the navigated weighting and naive estimation
 #'
 #' Plots a scattered plot comparing the resulting inverse probability weights 
 #' estimated by the navigated weighting and the standard logistic regression.

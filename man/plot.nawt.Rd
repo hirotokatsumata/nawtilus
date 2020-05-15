@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.nawt.R
 \name{plot.nawt}
 \alias{plot.nawt}
-\title{Plot a Scattered Plot Comparing the Navigated Weighting and Naive Estimation}
+\title{Plot a scattered plot comparing the navigated weighting and naive estimation}
 \usage{
 \method{plot}{nawt}(x, ...)
 }

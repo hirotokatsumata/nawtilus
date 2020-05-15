@@ -2,7 +2,7 @@
 % Please edit documentation in R/nawt.R
 \name{nawt}
 \alias{nawt}
-\title{Navigated Weighting (NAWT) Estimation}
+\title{Navigated weighting (NAWT) estimation}
 \usage{
 nawt(formula, outcome, estimand = "ATT", method = "score", data,
   weights = NULL, alpha = 2, twostep = TRUE, boot = FALSE,
@@ -34,7 +34,8 @@ model.}
 \item{weights}{an optional vector of ‘prior weights’ (e.g. sampleing weights)
 to be used in the fitting process. Should be NULL or a numeric vector.}
 
-\item{alpha}{a positive value for an exponent in a power weighting function.
+\item{alpha}{a positive value for an exponent in a power weighting function
+(\eqn{\omega(\pi) = \pi^\alpha}, in the ATT estimation, for example).
 Default is 2. Set to 0 to use the standard logistic regression for  
 propensity score estimation. Note that \code{nawt} with alpha being one of the
 pre-specified values (0, 0.5, 1, \ldots, 5) runs substantially faster than 
@@ -110,18 +111,52 @@ outcome cases.}
 }
 \description{
 \code{nawt} estimates a pre-specified parameter of interest (e.g., the 
-average treatment effects or the average treatment effects on the treated) 
-with the inverse probability weighting where propensity scores are estimated
-using estimating equations suitable for the parameter of interest. It 
-includes the covariate balancing propensity score proposed by Imai and 
-Ratkovic (2014), which uses covariate balancing conditions in propensity 
-score estimation. \code{nawt} can also be used to estimate average outcomes
-in missing outcome cases.
+average treatment effects (ATE) or the average treatment effects on the 
+treated (ATT)) with the inverse probability weighting where propensity scores
+are estimated using estimating equations suitable for the parameter of 
+interest. It includes the covariate balancing propensity score proposed by 
+Imai and Ratkovic (2014), which uses covariate balancing conditions in 
+propensity score estimation. \code{nawt} can also be used to estimate average
+outcomes in missing outcome cases.
 }
 \details{
-The treatment variable (or, missingness variable missing outcome cases) must 
-be binary and coded as 0 (for controlled or non-missing observations) and 1 
-(for treated or missing observations).
+The treatment variable (or, missingness variable in missing outcome cases) 
+must be binary and coded as 0 (for controlled or non-missing observations)
+or 1 (for treated or missing observations).
+
+The parameter of interest is estimated by the Hajek estimator, where inverse
+probability weights are standardized to sum to 1 within each treatment group 
+after being calculated as \eqn{t_i / \pi_i - (1 - t_i) / (1 - \pi_i)} for the
+ATE estimation, \eqn{(t_i - \pi_i) / (1 - \pi_i)} for the ATT estimation,
+\eqn{(t_i - \pi_i) / \pi_i} for the ATC estimation, and
+\eqn{(1 - t_i) / (1 - \pi_i)} for the missing outcome cases.
+
+For the ATE estimation, it is recommended to specify the \code{estimand} as
+\code{"ATE"} but you may specify it as \code{"ATEcombined"}. The former utilizes 
+the separated estimation whereas the latter utilizes the combined estimation,
+and the former should produce smaller biases and variances. Note that the 
+former estimates two propensity scores for each observation by estimating two 
+propensity score functions with different estimating equations.
+
+When a two-step estimator is used in \code{nawt} with \code{method = "both"},
+\code{scratio} (\eqn{r}) is calculated in the first step. \code{scratio} is a
+ratio of accuracy in propensity score estimation in the NAWT with a power 
+weighting function with a specified \code{alpha} to that with a covariate balancing
+weighting function. It determines the mixture weight in the second step, like
+the weighting matrix in the two-step over-identified GMM estimation, where 
+weighted estimating equations of those with the power weighting function and 
+the covariate balancing function is used. This mixture weight is proportional 
+to the \code{scratio} (e.g., \eqn{\omega(\pi) = r \pi^\alpha + (1 - r) / (1 - \pi)}, 
+in the ATT estimation).
+
+Since the NAWT utilizes weighted estimating equations in propensity score 
+estimation, it may sometimes become unstable especially when only a few 
+observations have extremely large weights in propensity score estimation.
+\code{nawt} generates a warning when the effective sample size for propensity 
+socre estimation is smaller than a quarter of the effective sample size with
+the initial weights. In that case, carefully look at the estimated 
+coefficients to check whether the estimation fails or not and \code{\link{cbcheck}}
+will be helpful.
 }
 \examples{
 # Simulation from Kang and Shafer (2007) and Imai and Ratkovic (2014)

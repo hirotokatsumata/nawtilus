@@ -2,7 +2,7 @@
 % Please edit documentation in R/cbcheck.R
 \name{cbcheck}
 \alias{cbcheck}
-\title{Summarize and Plot Covariate Balance}
+\title{Summarize and plot covariate balance}
 \usage{
 cbcheck(object, addcov = NULL, standardize = TRUE, plot = TRUE,
   absolute = TRUE, threshold = 0, sort = TRUE)

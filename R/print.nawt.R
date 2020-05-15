@@ -1,4 +1,4 @@
-#' Print Navigated Weighting Estimation
+#' Print navigated weighting estimation
 #'
 #' Prints a fitted \code{nawt} object.
 #'

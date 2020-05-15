@@ -1,4 +1,4 @@
-#' Summarizing Navigated Weighting Estimation
+#' Summarizing navigated weighting estimation
 #'
 #' Prints a summary of a fitted \code{nawt} object.
 #'
