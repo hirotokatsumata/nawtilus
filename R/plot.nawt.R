@@ -54,23 +54,23 @@ plot.nawt <- function (x, ...) {
   graphics::plot(x = x$naive_weights[x$treat == 0], 
                  y = x$weights[x$treat == 0], 
                  col = grDevices::rgb(39/ 255, 139/ 255, 210 / 255, 
-                                       alpha = 0.75),
+                                      alpha = 0.75),
                  xlim = c(0, maxweight), ylim = c(0, maxweight),
                  xlab = "", ylab = "")
   graphics::par(new = TRUE)
   graphics::plot(x = x$naive_weights[x$treat == 1], 
                  y = x$weights[x$treat == 1], 
                  col = grDevices::rgb(220 / 255, 50 / 255, 46 / 255, 
-                                       alpha = 0.75),
+                                      alpha = 0.75),
                  xlim = c(0, maxweight), ylim = c(0, maxweight),
                  xlab = "Naive weights", ylab = "Navigated weights")
   graphics::text(x = minweight, y = maxweight * 0.9, labels = "control", 
                  col = grDevices::rgb(39/ 255, 139/ 255, 210 / 255, 
-                                       alpha = 0.85), 
+                                      alpha = 0.85), 
                  adj = 0, cex = 1.2)
   graphics::text(x = minweight, y = maxweight * 0.95, labels = "treat", 
                  col = grDevices::rgb(220 / 255, 50 / 255, 46 / 255, 
-                                       alpha = 0.85), 
+                                      alpha = 0.85), 
                  adj = 0, cex = 1.2)
   graphics::abline(0, 1)
 }
