@@ -83,6 +83,10 @@ cbcheck(fitcbm, addcov = ~ x1 + x2 + x3 + x4)
 fits0m <- nawt(formula = formula_m, outcome = "y", estimand = "ATT", 
                method = "score", data = df, alpha = 0)
 cbcheck(fits0m, addcov = ~ x1 + x2 + x3 + x4)
+
+# Display the covariate balance matrix
+cb <- cbcheck(fits2m, addcov = ~ x1 + x2 + x3 + x4, plot = FALSE)
+cb
 }
 \author{
 Hiroto Katsumata.

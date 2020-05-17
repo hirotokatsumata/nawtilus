@@ -61,16 +61,20 @@
 #' fits2m <- nawt(formula = formula_m, outcome = "y", estimand = "ATT", 
 #'                method = "score", data = df, alpha = 2)
 #' cbcheck(fits2m, addcov = ~ x1 + x2 + x3 + x4)
-#' 
+#'
 #' # Covariate balancing weighting function
 #' fitcbm <- nawt(formula = formula_m, outcome = "y", estimand = "ATT", 
 #'                method = "cb", data = df)
 #' cbcheck(fitcbm, addcov = ~ x1 + x2 + x3 + x4)
-#' 
+#'
 #' # Standard logistic regression
 #' fits0m <- nawt(formula = formula_m, outcome = "y", estimand = "ATT", 
 #'                method = "score", data = df, alpha = 0)
 #' cbcheck(fits0m, addcov = ~ x1 + x2 + x3 + x4)
+#'
+#' # Display the covariate balance matrix
+#' cb <- cbcheck(fits2m, addcov = ~ x1 + x2 + x3 + x4, plot = FALSE)
+#' cb
 cbcheck <- function (object, addcov = NULL, standardize = TRUE, 
                      plot = TRUE, absolute = TRUE, threshold = 0, sort = TRUE) {
   formula <- stats::as.formula(object$formula)
