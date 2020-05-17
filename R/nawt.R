@@ -65,8 +65,8 @@
 #'   function of propensity scores (need to specify the value for alpha), "cb"
 #'   for a covariate balancing weighting function, or "both" to use both the
 #'   above weighting functions (need to specify the value for alpha).
-#' @param data a data frame containing the outcomes and the variables in the 
-#'   model.
+#' @param data a data frame (or one that can be coerced to that class) 
+#'   containing the outcomes and the variables in the model.
 #' @param weights an optional vector of ‘prior weights’ (e.g. sampleing weights)
 #'   to be used in the fitting process. Should be NULL or a numeric vector.
 #' @param alpha a positive value for an exponent in a power weighting function
@@ -271,6 +271,7 @@ nawt <- function (formula, outcome, estimand = "ATT", method = "score",
 		}
 		print(paste("Estimate weights for the", estimand, printmethod))
 	}
+	data <- data.frame(data)
 	if (boot == TRUE) {
 		stopifnot(length(B) == 1)
 		result <- nawt0(formula = formula, outcome = outcome, estimand = estimand, 
