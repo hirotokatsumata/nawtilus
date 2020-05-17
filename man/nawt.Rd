@@ -28,8 +28,8 @@ function of propensity scores (need to specify the value for alpha), "cb"
 for a covariate balancing weighting function, or "both" to use both the
 above weighting functions (need to specify the value for alpha).}
 
-\item{data}{a data frame containing the outcomes and the variables in the 
-model.}
+\item{data}{a data frame (or one that can be coerced to that class) 
+containing the outcomes and the variables in the model.}
 
 \item{weights}{an optional vector of ‘prior weights’ (e.g. sampleing weights)
 to be used in the fitting process. Should be NULL or a numeric vector.}
