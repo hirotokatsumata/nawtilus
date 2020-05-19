@@ -22,14 +22,15 @@
 #'
 #' @return A matrix whose rows are the covariates and columns are the 
 #'   differences in the (un)standardized weighted mean between the treatment and
-#'   control groups before and after the navigated weighting. The standardized 
-#'   weighted mean is the weighted mean divided by the standard deviation of the 
-#'   covariate for the target population (the treatment group for the average 
-#'   treatment effects on the treated estimation and the whole population for 
-#'   the other quantity of interest. The differences in the categorical 
-#'   variables are not standardized.
+#'   control groups before (\code{diff.un}) and after (\code{diff.adj}) the 
+#'   navigated weighting. The standardized weighted mean is the weighted mean 
+#'   divided by the standard deviation of the covariate for the target 
+#'   population (the treatment group for the average treatment effects on the 
+#'   treated estimation and the whole population for the other quantity of 
+#'   interest). The differences in the categorical variables are not 
+#'   standardized.
 #'
-#' @author Hiroto Katsumata.
+#' @author Hiroto Katsumata
 #' 
 #' @examples 
 #' # Simulation from Kang and Shafer (2007) and Imai and Ratkovic (2014)

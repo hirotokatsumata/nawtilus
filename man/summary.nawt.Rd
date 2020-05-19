@@ -33,5 +33,5 @@ Prints a summmary of a \code{nawt} object, in a format similar to glm.
 \code{\link{nawt}}, \code{\link[base]{summary}}
 }
 \author{
-Hiroto Katsumata.
+Hiroto Katsumata
 }

@@ -18,7 +18,7 @@
 #' \item{effN_est}{the effective sample size for the parameter of interest
 #'   estimation.}
 #'
-#' @author Hiroto Katsumata.
+#' @author Hiroto Katsumata
 #' 
 #' @seealso \code{\link{nawt}}, \code{\link[base]{summary}}
 #'

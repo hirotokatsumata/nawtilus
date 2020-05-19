@@ -73,5 +73,5 @@ fitatebco <- nawt(formula = formula_c, outcome = "y", estimand = "ATE",
 plot_omega(fitatebco) # error}
 }
 \author{
-Hiroto Katsumata.
+Hiroto Katsumata
 }

@@ -18,5 +18,5 @@ Prints a fitted \code{nawt} object.
 \code{\link{nawt}}, \code{\link[base]{print}}
 }
 \author{
-Hiroto Katsumata.
+Hiroto Katsumata
 }

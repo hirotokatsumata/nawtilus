@@ -53,5 +53,5 @@ plot(fitate)
 \code{\link{nawt}}, \code{\link[graphics]{plot}}
 }
 \author{
-Hiroto Katsumata.
+Hiroto Katsumata
 }

@@ -25,7 +25,7 @@
 #' @param relative a logical value indicating whether or not relative weights 
 #'   standardized to have mean one are shown.
 #'
-#' @author Hiroto Katsumata.
+#' @author Hiroto Katsumata
 #' 
 #' @examples
 #' # Simulation from Kang and Shafer (2007) and Imai and Ratkovic (2014)

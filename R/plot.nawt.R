@@ -14,7 +14,7 @@
 #' @param x an object of class “nawt”, usually, a result of a call to \code{\link{nawt}}.
 #' @param ... additional arguments to be passed to plot.
 #'
-#' @author Hiroto Katsumata.
+#' @author Hiroto Katsumata
 #' 
 #' @seealso \code{\link{nawt}}, \code{\link[graphics]{plot}}
 #'
