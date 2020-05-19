@@ -4,8 +4,15 @@
 \alias{cbcheck}
 \title{Summarize and plot covariate balance}
 \usage{
-cbcheck(object, addcov = NULL, standardize = TRUE, plot = TRUE,
-  absolute = TRUE, threshold = 0, sort = TRUE)
+cbcheck(
+  object,
+  addcov = NULL,
+  standardize = TRUE,
+  plot = TRUE,
+  absolute = TRUE,
+  threshold = 0,
+  sort = TRUE
+)
 }
 \arguments{
 \item{object}{an object of class “nawt”, usually, a result of a call to \code{\link{nawt}}.}

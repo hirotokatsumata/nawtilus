@@ -4,9 +4,20 @@
 \alias{nawt}
 \title{Navigated weighting (NAWT) estimation}
 \usage{
-nawt(formula, outcome, estimand = "ATT", method = "score", data,
-  weights = NULL, alpha = 2, twostep = TRUE, boot = FALSE,
-  B = 2000, clevel = 0.95, message = TRUE)
+nawt(
+  formula,
+  outcome,
+  estimand = "ATT",
+  method = "score",
+  data,
+  weights = NULL,
+  alpha = 2,
+  twostep = TRUE,
+  boot = FALSE,
+  B = 2000,
+  clevel = 0.95,
+  message = TRUE
+)
 }
 \arguments{
 \item{formula}{an object of class \code{\link[stats]{formula}} (or one that

@@ -4,7 +4,8 @@
 \name{LaLonde}
 \alias{LaLonde}
 \title{LaLonde data set}
-\format{A data frame with 3212 observations and 12 variables.
+\format{
+A data frame with 3212 observations and 12 variables.
 \describe{
   \item{exper}{an indicator for whether the observed unit was in the 
     experimental subset}
@@ -23,7 +24,8 @@
 }
 Data not missing 1974 earnings are the Dehejia-Wahba subsample of the LaLonde
   data. Missing values for 1974 earnings set to zero. 1974 and 1975 earnings 
-  are pre-treatment. 1978 earnings is taken as the outcome variable.}
+  are pre-treatment. 1978 earnings is taken as the outcome variable.
+}
 \source{
 This version of the data is from \code{\link[CBPS]{LaLonde}} data in \code{CBPS} package.
 }
