@@ -250,7 +250,7 @@ nawt <- function (formula, outcome, estimand = "ATT", method = "score",
   if (min(clevel) <= 0 | max(clevel) >= 1) {
     stop("clevel must be between 0 and 1")
   }
-  if (method != "cb" & (alpha %in% c(1:10 / 2)) == 0) {
+  if (method != "cb" & (alpha %in% c(0:10 / 2)) == 0) {
     if (!requireNamespace("hypergeo", quietly = TRUE)) {
       stop("Package \"hypergeo\" needed for this function to work when alpha is
             not one of the prespecified values. Please install it.",
