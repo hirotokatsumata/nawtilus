@@ -437,8 +437,6 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 	}
 	naive_coef <- svdtranscoef(coef = naive_coef, svdx = svdx)
 	names(naive_coef) <- names.x
-	KLd <- 
-		KLdivergence(weights = est.weights, estimand = estimand, missing = missing)
 	if (estimand0 == "ATC") {
 		estimand <- "ATC"
 		est <- -est
@@ -455,7 +453,6 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
 			 converged = converged,
 			 naive_weights = naive_weights,
 			 naive_coef = naive_coef,
-			 KLd = KLd,
 			 scratio = scratio,
 			 estimand = estimand,
 			 method = method,

@@ -79,8 +79,6 @@ An object of class "nawt" is a list containing the following components:
   standard logistic regression for the propensity score estimation.}
 \item{naive_coef}{a named vector of coefficients with the standard logistic 
   regression for the propensity score estimation.}
-\item{KLd}{the Kullback-Leibler divergence from the uniform base weights to 
-  the estimated inverse probability weights.}
 \item{scratio}{an optimal ratio of the covariate balancing weighting function
   to the power weighting function in taking the weighted average weights for
   the weighted score conditions when \code{method = "both"} and \code{twostep = TRUE}. 
