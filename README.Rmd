@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
 
 **nawtilus** provides a procedure for the navigated weighting (nawt), which estimates a pre-specified parameter of interest (e.g., the average treatment effects or the average treatment effects on the treated) with the inverse probability weighting where propensity scores are estimated using estimating equations suitable for the parameter of interest. It also provides several tools for summarizing and checking the estimation results, including covariate balance check and an inverse probability weights plot.
 
+<br>
+
 <!-- badges: start -->
 <!-- badges: end -->
 

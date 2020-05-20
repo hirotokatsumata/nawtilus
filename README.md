@@ -14,6 +14,8 @@ also provides several tools for summarizing and checking the estimation
 results, including covariate balance check and an inverse probability
 weights plot.
 
+<br>
+
 <!-- badges: start -->
 
 <!-- badges: end -->
