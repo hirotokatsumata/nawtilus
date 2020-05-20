@@ -5,7 +5,7 @@
 
 <img align="left" src="man/figures/nawtilus_LOGO.png" width="180">
 
-**nawtilus** provides a procedure for the navigated weighting (nawt),
+**nawtilus** provides a procedure for the navigated weighting (NAWT),
 which estimates a pre-specified parameter of interest (e.g., the average
 treatment effects or the average treatment effects on the treated) with
 the inverse probability weighting where propensity scores are estimated
@@ -120,7 +120,7 @@ summary(fit)
 ```
 
 Check covariate balance between the treatment and control groups before
-and after the nawt with `cbcheck()`.
+and after the NAWT with `cbcheck()`.
 
 ``` r
 oldpar <- par(no.readonly = TRUE) # Just for adjusting plot margins
@@ -145,7 +145,7 @@ plot(fit)
 <img src="man/figures/README-plot.nawt-1.png" width="500" height="500" style="display: block; margin: auto;" />
 
 Finally, check the weights used in propensity score estimation and
-distribution of the estimated propensity scores in the nawt with
+distribution of the estimated propensity scores in the NAWT with
 `plot_onega()`.
 
 ``` r

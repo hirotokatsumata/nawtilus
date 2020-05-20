@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 <img align="left" src="man/figures/nawtilus_LOGO.png" width="180">
 
-**nawtilus** provides a procedure for the navigated weighting (nawt), which estimates a pre-specified parameter of interest (e.g., the average treatment effects or the average treatment effects on the treated) with the inverse probability weighting where propensity scores are estimated using estimating equations suitable for the parameter of interest. It also provides several tools for summarizing and checking the estimation results, including covariate balance check and an inverse probability weights plot.
+**nawtilus** provides a procedure for the navigated weighting (NAWT), which estimates a pre-specified parameter of interest (e.g., the average treatment effects or the average treatment effects on the treated) with the inverse probability weighting where propensity scores are estimated using estimating equations suitable for the parameter of interest. It also provides several tools for summarizing and checking the estimation results, including covariate balance check and an inverse probability weights plot.
 
 <br>
 
@@ -88,7 +88,7 @@ You can summarize the results easily with `summary()`.
 summary(fit)
 ```
 
-Check covariate balance between the treatment and control groups before and after the nawt with `cbcheck()`.
+Check covariate balance between the treatment and control groups before and after the NAWT with `cbcheck()`.
 ```{r cbcheck, fig.align = 'center', fig.width = 6.8, fig.height = 5.5, out.width = 500, out.height = 500 * 5.5 / 6.8}
 oldpar <- par(no.readonly = TRUE) # Just for adjusting plot margins
 par(mar = c(5.1, 5.1, 4.1, 2.1)) # Just for adjusting plot margins
@@ -101,7 +101,7 @@ Let's compare the inverse probability weights estimated by the nawt with those e
 plot(fit)
 ```
 
-Finally, check the weights used in propensity score estimation and distribution of the estimated propensity scores in the nawt with `plot_onega()`.
+Finally, check the weights used in propensity score estimation and distribution of the estimated propensity scores in the NAWT with `plot_onega()`.
 ```{r plot_omega, fig.align = 'center', fig.width = 6, fig.height = 6, out.width = 500, out.height = 500}
 plot_omega(fit)
 ```
