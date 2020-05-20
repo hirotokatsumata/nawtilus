@@ -3,18 +3,20 @@
 
 # nawtilus: An R Package for the Navigated Weighting (NAWT)
 
+<img src="man/figures/nawtilusLOGO.png" width="160px" style="float:left; padding:25px" />
+
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-**nawtilus** provides a procedure for the navigated weighting (nawt),
-which estimates a pre-specified parameter of interest (e.g., the average
-treatment effects or the average treatment effects on the treated) with
-the inverse probability weighting where propensity scores are estimated
-using estimating equations suitable for the parameter of interest. It
-also provides several tools for summarizing and checking the estimation
-results, including covariate balance check and an inverse probability
-weights plot.
+<br> <br> **nawtilus** provides a procedure for the navigated weighting
+(nawt), which estimates a pre-specified parameter of interest (e.g., the
+average treatment effects or the average treatment effects on the
+treated) with the inverse probability weighting where propensity scores
+are estimated using estimating equations suitable for the parameter of
+interest. It also provides several tools for summarizing and checking
+the estimation results, including covariate balance check and an inverse
+probability weights plot.
 
 ## How to cite
 

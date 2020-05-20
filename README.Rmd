@@ -14,9 +14,15 @@ knitr::opts_chunk$set(
 ```
 # nawtilus: An R Package for the Navigated Weighting (NAWT)
 
+```{r, echo = FALSE, out.width = "160px", out.extra='style="float:left; padding:25px"'}
+knitr::include_graphics("man/figures/nawtilusLOGO.png")
+```
+
 <!-- badges: start -->
 <!-- badges: end -->
 
+<br>
+<br>
 **nawtilus** provides a procedure for the navigated weighting (nawt), which estimates a pre-specified parameter of interest (e.g., the average treatment effects or the average treatment effects on the treated) with the inverse probability weighting where propensity scores are estimated using estimating equations suitable for the parameter of interest. It also provides several tools for summarizing and checking the estimation results, including covariate balance check and an inverse probability weights plot.
 
 ## How to cite
