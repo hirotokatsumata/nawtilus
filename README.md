@@ -4,6 +4,7 @@
 # nawtilus: An R Package for the Navigated Weighting (NAWT)
 
 <img align="left" src="man/figures/nawtilus_LOGO.png" width="180">
+
 **nawtilus** provides a procedure for the navigated weighting (nawt),
 which estimates a pre-specified parameter of interest (e.g., the average
 treatment effects or the average treatment effects on the treated) with
