@@ -339,7 +339,7 @@ nawt <- function (formula, outcome, estimand = "ATT", method = "score",
   if (method != "both" | twostep == TRUE) {
     if (min(result$effN_ps) < effN_original / 4) {
       warning(paste("Propensity score estimates may be unstable (Effective N = ", 
-                    result$effN_ps, "). Try smaller alpha. "))
+                    result$effN_ps, "). Check the results carefully. "))
     }
   }
   result$effN_original <- effN_original
