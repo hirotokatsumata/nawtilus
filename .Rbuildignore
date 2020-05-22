@@ -6,3 +6,4 @@
 ^man/figures
 ^\.git
 ^LICENSE\.md$
+^cran-comments\.md$
