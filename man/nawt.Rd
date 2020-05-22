@@ -258,6 +258,11 @@ mean(subset(LaLonde, exper == 1 & treat == 1)$re78) -
   with(LaLonde, sum((1 - exper) * re78 * fits0l$weights) / 
                 sum((1 - exper) * fits0l$weights))
 }
+\references{
+Imai, Kosuke and Marc Ratkovic. 2014. "Covariate Balancing 
+  Propensity Score." Journal of the Royal Statistical Society, Series B 
+  (Statistical Methodology) 76 (1): 243--63.
+}
 \seealso{
 \code{\link{summary.nawt}}
 }

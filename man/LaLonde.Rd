@@ -38,4 +38,17 @@ Data from the National Supported Work Demonstration Program and
   extensively analyzed by Lalonde (1986), Dehejia and Wahba (1999), and Imai
   and Ratkovic (2014).
 }
+\references{
+Dehejia, Rajeev H., and Sadek Wahba. 1999. "Causal Effects in 
+  Nonexperimental Studies: Reevaluating the Evaluation of Training Programs."
+  Journal of the American Statistical Association 94 (448): 1053--62.
+
+  Imai, Kosuke and Marc Ratkovic. 2014. "Covariate Balancing 
+  Propensity Score." Journal of the Royal Statistical Society, Series B 
+  (Statistical Methodology) 76 (1): 243--63.
+
+  LaLonde, Robert J. 1986. "Evaluating the Econometric Evaluations 
+  of Training Programs with Experimental Data." American Economic Review 76 
+  (4): 604--20.
+}
 \keyword{datasets}

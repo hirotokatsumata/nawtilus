@@ -139,7 +139,11 @@
 #'   version 0.21 of the \code{\link[CBPS]{CBPS}} function implemented in the \code{CBPS} package, 
 #'   originally written by Christian Fong, Marc Ratkovic, Kosuke Imai, and 
 #'   Xiaolin Yang.
-#' 
+#'
+#' @references Imai, Kosuke and Marc Ratkovic. 2014. "Covariate Balancing 
+#'   Propensity Score." Journal of the Royal Statistical Society, Series B 
+#'   (Statistical Methodology) 76 (1): 243--63.
+#'
 #' @seealso \code{\link{summary.nawt}}
 #'
 #' @examples

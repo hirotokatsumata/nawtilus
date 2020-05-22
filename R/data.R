@@ -26,4 +26,15 @@
 #'   data. Missing values for 1974 earnings set to zero. 1974 and 1975 earnings 
 #'   are pre-treatment. 1978 earnings is taken as the outcome variable.
 #' @source This version of the data is from \code{\link[CBPS]{LaLonde}} data in \code{CBPS} package.
+#' @references Dehejia, Rajeev H., and Sadek Wahba. 1999. "Causal Effects in 
+#'   Nonexperimental Studies: Reevaluating the Evaluation of Training Programs."
+#'   Journal of the American Statistical Association 94 (448): 1053--62.
+#'
+#'   Imai, Kosuke and Marc Ratkovic. 2014. "Covariate Balancing 
+#'   Propensity Score." Journal of the Royal Statistical Society, Series B 
+#'   (Statistical Methodology) 76 (1): 243--63.
+#'
+#'   LaLonde, Robert J. 1986. "Evaluating the Econometric Evaluations 
+#'   of Training Programs with Experimental Data." American Economic Review 76 
+#'   (4): 604--20.
 "LaLonde"
