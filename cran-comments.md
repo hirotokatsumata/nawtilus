@@ -13,4 +13,4 @@ There were no ERRORs or WARNINGs
 ### win-builder (devel)
 0 errors | 0 warnings | 1 note
 
-R Under development (unstable) (2020-05-19 r78492)
+R Under development (unstable) (2020-05-22 r78545)
