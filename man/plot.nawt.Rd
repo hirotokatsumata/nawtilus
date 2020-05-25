@@ -21,6 +21,8 @@ propensity scores with the standard logistic regression whereas the y-axis
 shows those with the navigated weighting. Excessively heavy weights on only a
 few observations in the navigated weighting may indicate the failure of 
 the estimation.
+
+Position of the legend is determined internally.
 }
 \examples{
 # Simulation from Kang and Shafer (2007) and Imai and Ratkovic (2014)

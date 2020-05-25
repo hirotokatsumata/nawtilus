@@ -51,6 +51,9 @@ A matrix whose rows are the covariates and columns are the
 Summarizes and plots covariate balance between treatment and control groups 
   before and after the navigated weighting.
 }
+\details{
+Position of the legend is determined internally.
+}
 \examples{
 # Simulation from Kang and Shafer (2007) and Imai and Ratkovic (2014)
 # ATT estimation

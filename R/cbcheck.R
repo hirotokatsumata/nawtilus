@@ -3,6 +3,8 @@
 #' Summarizes and plots covariate balance between treatment and control groups 
 #'   before and after the navigated weighting.
 #'
+#' Position of the legend is determined internally.
+#'
 #' @export
 #'
 #' @param object an object of class “nawt”, usually, a result of a call to \code{\link{nawt}}.

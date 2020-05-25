@@ -9,6 +9,8 @@
 #' few observations in the navigated weighting may indicate the failure of 
 #' the estimation.
 #'
+#' Position of the legend is determined internally.
+#'
 #' @export
 #'
 #' @param x an object of class “nawt”, usually, a result of a call to \code{\link{nawt}}.

@@ -29,9 +29,11 @@ treatment. Therefore, there are two weighting functions for estimating two
 sets of propensity scores and two propensity score distributions. Points 
 rising to the right and a solid curve represent the weighting functions and 
 distribution of propensity scores for estimating the average of the potential
-outcomes without treatment whereas Points rising to the left and a dashed 
+outcomes without treatment whereas points rising to the left and a dashed 
 curve represent the weighting functions and distribution of propensity scores
 for estimating the average of the potential outcomes with treatment.
+
+Position of the legend is determined internally.
 }
 \examples{
 # Simulation from Kang and Shafer (2007) and Imai and Ratkovic (2014)
