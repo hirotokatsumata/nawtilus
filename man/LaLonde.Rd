@@ -35,7 +35,7 @@ LaLonde
 \description{
 Data from the National Supported Work Demonstration Program and 
   the Panel Study for Income Dynamics. A benchmark data set, which is
-  extensively analyzed by Lalonde (1986), Dehejia and Wahba (1999), and Imai
+  extensively analyzed by LaLonde (1986), Dehejia and Wahba (1999), and Imai
   and Ratkovic (2014).
 }
 \references{

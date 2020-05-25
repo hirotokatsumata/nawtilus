@@ -11,11 +11,11 @@
 #' @param addcov a one-sided formula specifying additional covariates whose 
 #'   balance is checked. Covariates containing NAs are automatically dropped.
 #' @param standardize a logical value indicating whether weighted mean 
-#'   differences are standardiezed or not.
-#' @param plot a logical value indicating whether a cavariate balance plot is
-#'   displyaed. 
+#'   differences are standardized or not.
+#' @param plot a logical value indicating whether a covariate balance plot is
+#'   displayed. 
 #' @param absolute a logical value indicating whether the absolute values of 
-#'   differeces in weighted means are used in the covariate balance plot.
+#'   differences in weighted means are used in the covariate balance plot.
 #' @param threshold an optional numeric vector used as threshold markers in the 
 #'   covariate balance plot.
 #' @param sort a logical value indicating whether covariates in the covariate 

@@ -21,13 +21,13 @@ cbcheck(
 balance is checked. Covariates containing NAs are automatically dropped.}
 
 \item{standardize}{a logical value indicating whether weighted mean 
-differences are standardiezed or not.}
+differences are standardized or not.}
 
-\item{plot}{a logical value indicating whether a cavariate balance plot is
-displyaed.}
+\item{plot}{a logical value indicating whether a covariate balance plot is
+displayed.}
 
 \item{absolute}{a logical value indicating whether the absolute values of 
-differeces in weighted means are used in the covariate balance plot.}
+differences in weighted means are used in the covariate balance plot.}
 
 \item{threshold}{an optional numeric vector used as threshold markers in the 
 covariate balance plot.}

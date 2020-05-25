@@ -33,7 +33,7 @@ for the average treatment effects estimation, "ATC" for the average
 outcomes estimation in missing outcome cases. You can choose "ATEcombined" 
 for the combined estimation for the average treatment effects estimation.}
 
-\item{method}{a character string specifying a type of weignting functions in 
+\item{method}{a character string specifying a type of weighting functions in 
 propensity score estimation (\eqn{\omega(\pi)}). Choose "score" for a power
 function of propensity scores (need to specify the value for alpha), "cb"
 for a covariate balancing weighting function, or "both" to use both the
@@ -42,7 +42,7 @@ above weighting functions (need to specify the value for alpha).}
 \item{data}{a data frame (or one that can be coerced to that class) 
 containing the outcomes and the variables in the model.}
 
-\item{weights}{an optional vector of ‘prior weights’ (e.g. sampleing weights)
+\item{weights}{an optional vector of ‘prior weights’ (e.g. sampling weights)
 to be used in the fitting process. Should be NULL or a numeric vector.}
 
 \item{alpha}{a positive value for an exponent in a power weighting function
@@ -106,10 +106,10 @@ An object of class "nawt" is a list containing the following components:
 \item{treat}{the treatment vector. The missingness vector when the missing
 outcome cases.}
 \item{ci}{a matrix of the confidence intervals for the parameter of interest.}
-\item{omega}{a vetor of weights for the weighted score conditions (\eqn{\omega}).
+\item{omega}{a vector of weights for the weighted score conditions (\eqn{\omega}).
   A matrix of two sets of omega is returned when \code{estimand = "ATE"}.}
 \item{effN_ps}{the effective sample size for the propensity score estimation.
-  A vector of length two for two propensity score esimtion is returned when 
+  A vector of length two for two propensity score estimation is returned when 
   \code{estimand = "ATE"}.}
 \item{effN_est}{the effective sample size for the parameter of interest
   estimation.}
@@ -168,7 +168,7 @@ Since the NAWT utilizes weighted estimating equations in propensity score
 estimation, it may sometimes become unstable especially when only a few 
 observations have extremely large weights in propensity score estimation.
 \code{nawt} generates a warning when the effective sample size for propensity 
-socre estimation is smaller than a quarter of the effective sample size with
+score estimation is smaller than a quarter of the effective sample size with
 the initial weights. In that case, carefully look at the estimated 
 coefficients to check whether the estimation fails or not and \code{\link{cbcheck}}
 will be helpful.

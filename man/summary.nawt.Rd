@@ -24,7 +24,7 @@
 Prints a summary of a fitted \code{nawt} object.
 }
 \details{
-Prints a summmary of a \code{nawt} object, in a format similar to glm.
+Prints a summary of a \code{nawt} object, in a format similar to glm.
 }
 \examples{
 # For examples see example(nawt)

@@ -16,7 +16,7 @@ Plots a scattered plot comparing the resulting inverse probability weights
 estimated by the navigated weighting and the standard logistic regression.
 }
 \details{
-The x-axis shows the inverse probaility weights estimated by estimating 
+The x-axis shows the inverse probability weights estimated by estimating 
 propensity scores with the standard logistic regression whereas the y-axis
 shows those with the navigated weighting. Excessively heavy weights on only a
 few observations in the navigated weighting may indicate the failure of 
