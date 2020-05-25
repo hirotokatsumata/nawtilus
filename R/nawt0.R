@@ -1,23 +1,7 @@
-nawt0 <- function (formula, outcome, estimand = "ATT", method = "score", 
-                   data, weights = NULL, alpha = 2, twostep = TRUE, 
-                   varcov = TRUE) {
+nawt0 <- function (outcome, estimand = "ATT", method = "score", 
+                   missing = missing, x = x, N = N, weights = NULL, 
+                   alpha = 2, twostep = TRUE, varcov = TRUE) {
   scratio <- NULL
-  outcome0 <- outcome
-  outcome <- c(data[, outcome])
-  formula <- stats::as.formula(formula)
-  model <- stats::model.frame(formula, data = data)
-  missing <- c(stats::model.extract(model, "response"))
-  x <- as.matrix(stats::model.matrix(formula, model))
-  N <- nrow(data)
-  if (setequal(missing, c(0, 1)) == FALSE) {
-    stop("treatment (missingness) variable must be binary (0, 1)")
-  }
-  if (is.null(weights) == 1) {
-    weights <- rep(1, N)
-  }
-  if (length(weights) != N) {
-    stop("length of weights must be the same as the number of rows of data")
-  }
   weights <- weights / mean(weights)
   N1 <- sum(missing * weights)
   names.x <- colnames(x)
@@ -458,9 +442,7 @@ nawt0 <- function (formula, outcome, estimand = "ATT", method = "score",
        method = method,
        outcome = outcome,
        alpha = alpha,
-       formula = formula,
        names.x = names.x,
        prior.weights = weights,
-       treat = c(missing),
-       data = data)
+       treat = c(missing))
 }

@@ -18,7 +18,7 @@ cbcheck(
 \item{object}{an object of class “nawt”, usually, a result of a call to \code{\link{nawt}}.}
 
 \item{addcov}{a one-sided formula specifying additional covariates whose 
-balance will be checked.}
+balance is checked. Covariates containing NAs are automatically dropped.}
 
 \item{standardize}{a logical value indicating whether weighted mean 
 differences are standardiezed or not.}

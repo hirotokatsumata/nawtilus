@@ -13,6 +13,12 @@
 #' must be binary and coded as 0 (for controlled or non-missing observations)
 #' or 1 (for treated or missing observations).
 #'
+#' When the data frame has incomplete cases, which have NAs for either of 
+#' the treatment variable, explanatory variables for propensity score 
+#' estimation, or the outcome variable, \code{nawt} conducts listwise deletion.
+#' Returned values (e.g., \code{weights}, \code{ps}, \code{data}) do not contain
+#' values for these deleted cases.
+#'
 #' The parameter of interest is estimated by the Hajek estimator, where inverse
 #' probability weights are standardized to sum to 1 within each treatment group 
 #' after being calculated as \eqn{t_i / \pi_i - (1 - t_i) / (1 - \pi_i)} for the
@@ -116,14 +122,12 @@
 #' \item{method}{the method specified.}
 #' \item{outcome}{the outcome vector.}
 #' \item{alpha}{alpha specified.}
-#' \item{formula}{formula specified.}
 #' \item{names.x}{names of the explanatory variables in propensity score 
 #'   estimation.}
 #' \item{prior.weights}{the weights initially supplied, a vector of 1s if none
 #'   were.}
 #' \item{treat}{the treatment vector. The missingness vector when the missing
 #' outcome cases.}
-#' \item{data}{the data argument.}
 #' \item{ci}{a matrix of the confidence intervals for the parameter of interest.}
 #' \item{omega}{a vetor of weights for the weighted score conditions (\eqn{\omega}).
 #'   A matrix of two sets of omega is returned when \code{estimand = "ATE"}.}
@@ -133,7 +137,9 @@
 #' \item{effN_est}{the effective sample size for the parameter of interest
 #'   estimation.}
 #' \item{effN_original}{the effective sample size with the initial weights.}
+#' \item{formula}{formula specified.}
 #' \item{call}{the matched call.}
+#' \item{data}{the data argument.}
 #'
 #' @author Hiroto Katsumata; The \code{nawt} function is based on the code for 
 #'   version 0.21 of the \code{\link[CBPS]{CBPS}} function implemented in the \code{CBPS} package, 
@@ -274,18 +280,47 @@ nawt <- function (formula, outcome, estimand = "ATT", method = "score",
     print(paste("Estimate weights for the", estimand, printmethod))
   }
   data <- data.frame(data)
+  outcome <- c(data[, outcome])
+  complete_out <- which(stats::complete.cases(outcome) == 1)
+  data <- data[complete_out, ]
+  formula <- stats::as.formula(formula)
+  model <- stats::model.frame(formula, data = data)
+  missing <- c(stats::model.extract(model, "response"))
+  attr(missing, which = "names") <- NULL
+  x <- as.matrix(stats::model.matrix(formula, model))
+  incomplete_model <- c(attr(model, which = "na.action"))
+  complete_model <- setdiff(c(1:nrow(data)), incomplete_model)
+  data <- data[complete_model, ]
+  outcome <- (outcome[complete_out])[complete_model]
+  N <- nrow(data)
+  if (setequal(missing, c(0, 1)) == FALSE) {
+    stop("treatment (missingness) variable must be binary (0, 1)")
+  }
+  if (is.null(weights) == 1) {
+    weights <- rep(1, N)
+  } else {
+    weights <- (weights[complete_out])[complete_model]
+  }
+  if (length(weights) != N) {
+    stop("length of weights must be the same as the number of rows of data")
+  }
+  print(length(weights))
+  print(nrow(x))
+  print(length(missing))
+  print(length(outcome))
   if (boot == TRUE) {
     stopifnot(length(B) == 1)
-    result <- nawt0(formula = formula, outcome = outcome, estimand = estimand, 
-                    method = method, data = data, weights = weights, 
+    result <- nawt0(outcome = outcome, estimand = estimand, method = method, 
+                    missing = missing, x = x, N = N, weights = weights, 
                     alpha = alpha, twostep = twostep, varcov = FALSE)
     result2 <- matrix(, nrow = B, ncol = length(result$coefficients) + 1)
     for (b in 1:B) {
       bs.sample <- sample(1:nrow(data), nrow(data), replace = TRUE)
-      result0 <- nawt0(formula = formula, outcome = outcome, estimand = estimand, 
-                       method = method, data = data[bs.sample, ], 
-                       weights = weights[bs.sample], alpha = alpha, 
-                       twostep = twostep, varcov = FALSE)
+      result0 <- nawt0(outcome = outcome[bs.sample], estimand = estimand, 
+                       method = method, missing = missing[bs.sample],
+                       x = x[bs.sample, ], N = N,
+                       weights = weights[bs.sample], 
+                       alpha = alpha, twostep = twostep, varcov = FALSE)
       if (estimand != "ATE") {
         result2[b, ] <- c(result0$coefficients, result0$est)
       } else { # ATE
@@ -311,8 +346,8 @@ nawt <- function (formula, outcome, estimand = "ATT", method = "score",
                  rep(result$names.x, 2)), "est")
     }
   } else {
-    result <- nawt0(formula = formula, outcome = outcome, estimand = estimand, 
-                    method = method, data = data, weights = weights, 
+    result <- nawt0(outcome = outcome, estimand = estimand, method = method, 
+                    missing = missing, x = x, N = N, weights = weights, 
                     alpha = alpha, twostep = twostep, varcov = TRUE)
     cilength <- sqrt(diag(result$varcov)[nrow(result$varcov)]) * 
                   stats::qnorm((1 + clevel) / 2)
@@ -347,7 +382,9 @@ nawt <- function (formula, outcome, estimand = "ATT", method = "score",
     }
   }
   result$effN_original <- effN_original
+  result$formula <- formula
   result$call <- call
+  result$data <- data
   class(result) <- "nawt"
   result
 }

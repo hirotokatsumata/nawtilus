@@ -7,7 +7,7 @@
 #'
 #' @param object an object of class “nawt”, usually, a result of a call to \code{\link{nawt}}.
 #' @param addcov a one-sided formula specifying additional covariates whose 
-#'   balance will be checked.
+#'   balance is checked. Covariates containing NAs are automatically dropped.
 #' @param standardize a logical value indicating whether weighted mean 
 #'   differences are standardiezed or not.
 #' @param plot a logical value indicating whether a cavariate balance plot is
@@ -78,15 +78,22 @@
 #' cb
 cbcheck <- function (object, addcov = NULL, standardize = TRUE, 
                      plot = TRUE, absolute = TRUE, threshold = 0, sort = TRUE) {
+	data <- object$data
   formula <- stats::as.formula(object$formula)
-  model <- stats::model.frame(formula, data = object$data)
+  model <- stats::model.frame(formula, data = data)
   missing <- c(stats::model.extract(model, "response"))
   x <- as.matrix(stats::model.matrix(formula, model))
   w.original <- object$prior.weights
   if (is.null(addcov) == 0) {
+  	attr(data, which = "na.action") <- stats::na.pass
     formula2 <- stats::as.formula(addcov)
-    model2 <- stats::model.frame(formula2, data = object$data)
+    model2 <- stats::model.frame(formula2, data = data)
     x2 <- as.matrix(stats::model.matrix(formula2, model2))
+    incomplete_x2 <- which(stats::complete.cases(t(x2)) == 0)
+    if (length(incomplete_x2) > 0) {
+      x2 <- x2[, -incomplete_x2]
+      warning("Additional covariates which contain NA values are dropped")
+    }
     colnamesx <- colnames(x)
     colnamesx2 <- colnames(x2)[-1]
     x <- as.matrix(cbind(x, x2[, -1]))

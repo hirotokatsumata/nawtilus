@@ -99,14 +99,12 @@ An object of class "nawt" is a list containing the following components:
 \item{method}{the method specified.}
 \item{outcome}{the outcome vector.}
 \item{alpha}{alpha specified.}
-\item{formula}{formula specified.}
 \item{names.x}{names of the explanatory variables in propensity score 
   estimation.}
 \item{prior.weights}{the weights initially supplied, a vector of 1s if none
   were.}
 \item{treat}{the treatment vector. The missingness vector when the missing
 outcome cases.}
-\item{data}{the data argument.}
 \item{ci}{a matrix of the confidence intervals for the parameter of interest.}
 \item{omega}{a vetor of weights for the weighted score conditions (\eqn{\omega}).
   A matrix of two sets of omega is returned when \code{estimand = "ATE"}.}
@@ -116,7 +114,9 @@ outcome cases.}
 \item{effN_est}{the effective sample size for the parameter of interest
   estimation.}
 \item{effN_original}{the effective sample size with the initial weights.}
+\item{formula}{formula specified.}
 \item{call}{the matched call.}
+\item{data}{the data argument.}
 }
 \description{
 \code{nawt} estimates a pre-specified parameter of interest (e.g., the 
@@ -132,6 +132,12 @@ outcomes in missing outcome cases.
 The treatment variable (or, missingness variable in missing outcome cases) 
 must be binary and coded as 0 (for controlled or non-missing observations)
 or 1 (for treated or missing observations).
+
+When the data frame has incomplete cases, which have NAs for either of 
+the treatment variable, explanatory variables for propensity score 
+estimation, or the outcome variable, \code{nawt} conducts listwise deletion.
+Returned values (e.g., \code{weights}, \code{ps}, \code{data}) do not contain
+values for these deleted cases.
 
 The parameter of interest is estimated by the Hajek estimator, where inverse
 probability weights are standardized to sum to 1 within each treatment group 

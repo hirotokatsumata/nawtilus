@@ -63,7 +63,7 @@ summary.nawt <- function (object, ...) {
   print(coef.print, digits = getOption("digits") - 3)
   cat("---\n")
   cat("Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 \n")
-  cat("\nEffective N for propensity score estimation:", 
+  cat("\nEffective N for the propensity score estimation:", 
       round(object$effN_ps, digits = 2))
   if (object$estimand == "MO") {
     cat("\nEffective N for the", object$estimand, "estimation: ", 
