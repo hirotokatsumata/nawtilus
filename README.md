@@ -5,8 +5,9 @@
 
 <img align="left" src="man/figures/nawtilus_LOGO.png" width="180">
 
-**nawtilus** provides a procedure for the navigated weighting (NAWT),
-which estimates a pre-specified parameter of interest (e.g., the average
+**nawtilus** provides a procedure for the navigated weighting (NAWT)
+proposed by [Katsumata (2020)](https://arxiv.org/abs/2005.10998), which
+estimates a pre-specified parameter of interest (e.g., the average
 treatment effects or the average treatment effects on the treated) with
 the inverse probability weighting where propensity scores are estimated
 using estimating equations suitable for the parameter of interest. It
@@ -89,6 +90,10 @@ function with α = 2).
 fit <- nawt(formula = formula_c, outcome = "y", estimand = "ATT", 
             method = "score", data = df, alpha = 2)
 #> [1] "Estimate weights for the ATT estimation by (weighted) score conditions"
+#> [1] 1000
+#> [1] 1000
+#> [1] 1000
+#> [1] 1000
 ```
 
 You can summarize the results easily with `summary()`.
@@ -113,7 +118,7 @@ summary(fit)
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 #> 
-#> Effective N for propensity score estimation: 610.16
+#> Effective N for the propensity score estimation: 610.16
 #> Effective N for the ATT estimation:
 #>   treatment: 475 
 #>   control:   156.68
