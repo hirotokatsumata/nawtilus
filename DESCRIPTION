@@ -3,16 +3,17 @@ Type: Package
 Title: Navigated Weighting for the Inverse Probability Weighting
 Version: 0.0.1.9000
 Authors@R: person("Hiroto", "Katsumata", email = "hrt.katsumata@gmail.com", role = c("aut", "cre"))
-Description: Implements the navigated weighting (NAWT), which improves the inverse 
-    probability weighting by utilizing estimating equations suitable for a specific 
-    pre-specified parameter of interest (e.g., the average treatment effects or the 
-    average treatment effects on the treated) in propensity score estimation. It 
-    includes the covariate balancing propensity score proposed by Imai and Ratkovic 
-    (2014), which uses covariate balancing conditions in propensity score 
-    estimation. The point estimate of the parameter of interest as well as 
-    coefficients for propensity score estimation and their uncertainty are 
-    produced using the M-estimation. The same functions can be used to estimate 
-    average outcomes in missing outcome cases.
+Description: Implements the navigated weighting (NAWT) proposed by Katsumata (2020)
+    <arXiv:2005.10998>, which improves the inverse probability weighting by 
+    utilizing estimating equations suitable for a specific pre-specified parameter 
+    of interest (e.g., the average treatment effects or the average treatment 
+    effects on the treated) in propensity score estimation. It includes the 
+    covariate balancing propensity score proposed by Imai and Ratkovic (2014), 
+    which uses covariate balancing conditions in propensity score estimation. 
+    The point estimate of the parameter of interest as well as coefficients for 
+    propensity score estimation and their uncertainty are produced using the 
+    M-estimation. The same functions can be used to estimate average outcomes in 
+    missing outcome cases.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

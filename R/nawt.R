@@ -150,6 +150,10 @@
 #'   Propensity Score." Journal of the Royal Statistical Society, Series B 
 #'   (Statistical Methodology) 76 (1): 243--63.
 #'
+#'   Katsumata, Hiroto. 2020. "Navigated Weighting to Improve Inverse
+#'   Probability Weighting for Missing Data Problems and Causal Inference."
+#'   arXiv preprint arXiv:2005.10998.
+#'
 #' @seealso \code{\link{summary.nawt}}
 #'
 #' @examples
