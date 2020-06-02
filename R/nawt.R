@@ -141,10 +141,7 @@
 #' \item{call}{the matched call.}
 #' \item{data}{the data argument.}
 #'
-#' @author Hiroto Katsumata; The \code{nawt} function is based on the code for 
-#'   version 0.21 of the \code{\link[CBPS]{CBPS}} function implemented in the \code{CBPS} package, 
-#'   originally written by Christian Fong, Marc Ratkovic, Kosuke Imai, and 
-#'   Xiaolin Yang.
+#' @author Hiroto Katsumata
 #'
 #' @references Imai, Kosuke and Marc Ratkovic. 2014. "Covariate Balancing 
 #'   Propensity Score." Journal of the Royal Statistical Society, Series B 

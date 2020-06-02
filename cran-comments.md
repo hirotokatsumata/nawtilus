@@ -14,3 +14,8 @@ There were no ERRORs or WARNINGs
 0 errors | 0 warnings | 1 note
 
 R Under development (unstable) (2020-05-22 r78545)
+
+## Reply
+
+### \dontrun{} in plot_omega() function
+
