@@ -18,4 +18,9 @@ R Under development (unstable) (2020-05-22 r78545)
 ## Reply
 
 ### \dontrun{} in plot_omega() function
+The code in \dontrun{} cannot be executed.
+The first one (nawt()) can be executed but the second one (plot_omega()) 
+cannot because it needs the value of "omega" in the "object" argument but
+nawt(method = "both", twostep = FALSE) does not return omega.
+
 
