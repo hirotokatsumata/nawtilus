@@ -24,7 +24,7 @@ weights plot.
 ## How to cite
 
 <font size="4"> Hiroto Katsumata. 2020. nawtilus: An R package for the
-Navigated Weighting. R package version 0.0.1.9000.
+Navigated Weighting. R package version 0.1.1.9000
 <https://github.com/hirotokatsumata/nawtilus/> </font>
 
 ## Installation
