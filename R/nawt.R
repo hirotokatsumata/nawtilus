@@ -147,6 +147,10 @@
 #'   Propensity Score." Journal of the Royal Statistical Society, Series B 
 #'   (Statistical Methodology) 76 (1): 243--63.
 #'
+#'   Christian Fong, Marc Ratkovic and Kosuke Imai (2019). CBPS: Covariate
+#'   Balancing Propensity Score. R package version 0.21.
+#'   https://CRAN.R-project.org/package=CBPS
+#'
 #'   Katsumata, Hiroto. 2020. "Navigated Weighting to Improve Inverse
 #'   Probability Weighting for Missing Data Problems and Causal Inference."
 #'   arXiv preprint arXiv:2005.10998.
