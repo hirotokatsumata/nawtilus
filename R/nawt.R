@@ -309,10 +309,6 @@ nawt <- function (formula, outcome, estimand = "ATT", method = "score",
   if (length(weights) != N) {
     stop("length of weights must be the same as the number of rows of data")
   }
-  print(length(weights))
-  print(nrow(x))
-  print(length(missing))
-  print(length(outcome))
   if (boot == TRUE) {
     stopifnot(length(B) == 1)
     result <- nawt0(outcome = outcome, estimand = estimand, method = method, 
