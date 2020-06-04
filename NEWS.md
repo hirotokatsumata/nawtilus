@@ -1,3 +1,7 @@
+# nawtilus 0.1.2
+### Bug fixes
+* Remove codes for checking.
+
 # nawtilus 0.1.1
 ### Minor changes
 * Add references.
