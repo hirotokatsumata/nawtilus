@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 ## How to cite
-<font size="4"> Hiroto Katsumata. 2020. nawtilus: An R package for the Navigated Weighting. R package version 0.1.1.9000 https://github.com/hirotokatsumata/nawtilus/
+<font size="4"> Hiroto Katsumata. 2020. nawtilus: An R package for the Navigated Weighting. R package version 0.1.3.9000 https://github.com/hirotokatsumata/nawtilus/
 </font>
 
 

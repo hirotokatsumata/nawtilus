@@ -24,7 +24,7 @@ weights plot.
 ## How to cite
 
 <font size="4"> Hiroto Katsumata. 2020. nawtilus: An R package for the
-Navigated Weighting. R package version 0.1.1.9000
+Navigated Weighting. R package version 0.1.3.9000
 <https://github.com/hirotokatsumata/nawtilus/> </font>
 
 ## Installation
@@ -90,10 +90,6 @@ function with α = 2).
 fit <- nawt(formula = formula_c, outcome = "y", estimand = "ATT", 
             method = "score", data = df, alpha = 2)
 #> [1] "Estimate weights for the ATT estimation by (weighted) score conditions"
-#> [1] 1000
-#> [1] 1000
-#> [1] 1000
-#> [1] 1000
 ```
 
 You can summarize the results easily with `summary()`.
