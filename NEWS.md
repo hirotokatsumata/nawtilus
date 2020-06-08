@@ -1,3 +1,7 @@
+# nawtilus 0.1.3
+### Bug fixes
+* Add @return to S3 methods.
+
 # nawtilus 0.1.2
 ### Bug fixes
 * Remove codes for checking.
