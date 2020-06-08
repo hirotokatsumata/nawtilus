@@ -14,6 +14,9 @@ Note that it cannot be used when the \code{object} is a result of a call to
 \item{relative}{a logical value indicating whether or not relative weights 
 standardized to have mean one are shown.}
 }
+\value{
+No retrun value, called for side effects.
+}
 \description{
 Plots weight of each observation in the score condition \eqn{\omega(\pi)} for
   propensity score estimation and estimated propensity score distribution 

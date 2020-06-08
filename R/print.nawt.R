@@ -7,11 +7,12 @@
 #' @param x an object of class “nawt”, usually, a result of a call to \code{\link{nawt}}.
 #' @param ... additional arguments to be passed to print.
 #'
+#' @return No retrun value, called for side effects.
+#'
 #' @author Hiroto Katsumata
 #' 
 #' @seealso \code{\link{nawt}}, \code{\link[base]{print}}
 #'
-## S3 method for class 'nawt'
 print.nawt <- function (x, ...) {
   est <- signif(x$est, digits = getOption("digits") - 3)
   if (x$estimand == "ATE") {

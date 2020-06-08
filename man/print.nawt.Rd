@@ -11,6 +11,9 @@
 
 \item{...}{additional arguments to be passed to print.}
 }
+\value{
+No retrun value, called for side effects.
+}
 \description{
 Prints a fitted \code{nawt} object.
 }

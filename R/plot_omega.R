@@ -27,6 +27,8 @@
 #' @param relative a logical value indicating whether or not relative weights 
 #'   standardized to have mean one are shown.
 #'
+#' @return No retrun value, called for side effects.
+#'
 #' @author Hiroto Katsumata
 #' 
 #' @examples

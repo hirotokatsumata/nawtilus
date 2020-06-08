@@ -23,7 +23,6 @@
 #' @seealso \code{\link{nawt}}, \code{\link[base]{summary}}
 #'
 #' @examples # For examples see example(nawt)
-## S3 method for class 'nawt'
 summary.nawt <- function (object, ...) {
   est <- signif(object$est, digits = getOption("digits") - 3)
   k <- length(object$coef)

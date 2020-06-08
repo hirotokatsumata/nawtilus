@@ -16,6 +16,8 @@
 #' @param x an object of class “nawt”, usually, a result of a call to \code{\link{nawt}}.
 #' @param ... additional arguments to be passed to plot.
 #'
+#' @return No retrun value, called for side effects.
+#'
 #' @author Hiroto Katsumata
 #' 
 #' @seealso \code{\link{nawt}}, \code{\link[graphics]{plot}}
@@ -46,7 +48,6 @@
 #' fitate <- nawt(formula = formula_c, outcome = "y", estimand = "ATE", 
 #'                method = "score", data = df, alpha = 2)
 #' plot(fitate)
-## S3 method for class 'nawt'
 plot.nawt <- function (x, ...) {
   maxweight <- max(c(x$naive_weights, x$weights))
   minweight <- min(c(x$naive_weights, x$weights))

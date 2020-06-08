@@ -11,6 +11,9 @@
 
 \item{...}{additional arguments to be passed to plot.}
 }
+\value{
+No retrun value, called for side effects.
+}
 \description{
 Plots a scattered plot comparing the resulting inverse probability weights 
 estimated by the navigated weighting and the standard logistic regression.
