@@ -12,7 +12,7 @@ treatment effects or the average treatment effects on the treated) with
 the inverse probability weighting where propensity scores are estimated
 using estimating equations suitable for the parameter of interest. It
 also provides several tools for summarizing and checking the estimation
-results, including covariate balance check and an inverse probability
+results, including a covariate balance check and an inverse probability
 weights plot.
 
 <br>
@@ -23,24 +23,20 @@ weights plot.
 
 ## How to cite
 
-<font size="4"> Hiroto Katsumata. 2020. nawtilus: An R package for the
-Navigated Weighting. R package version 0.1.3.9000
-<https://github.com/hirotokatsumata/nawtilus/> </font>
+<font size="4"> Katsumata, Hiroto. 2020. nawtilus: Navigated Weighting
+for the Inverse Probability Weighting. R package version 0.1.3.
+<https://CRAN.R-project.org/package=nawtilus> </font>
 
 ## Installation
 
-<!--
-You can install the released version of nawtilus from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of nawtilus from
+[CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("nawtilus")
 ```
 
 And the development version from [GitHub](https://github.com/) with:
--->
-
-You can install the development version from
-[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -119,6 +115,9 @@ summary(fit)
 #>   treatment: 475 
 #>   control:   156.68
 ```
+
+Note that the estimated coefficients except for `est` are for the
+propensity score estimation.
 
 Check covariate balance between the treatment and control groups before
 and after the NAWT with `cbcheck()`.

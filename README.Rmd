@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 <img align="left" src="man/figures/nawtilus_LOGO.png" width="180">
 
-**nawtilus** provides a procedure for the navigated weighting (NAWT) proposed by [Katsumata (2020)](https://arxiv.org/abs/2005.10998), which estimates a pre-specified parameter of interest (e.g., the average treatment effects or the average treatment effects on the treated) with the inverse probability weighting where propensity scores are estimated using estimating equations suitable for the parameter of interest. It also provides several tools for summarizing and checking the estimation results, including covariate balance check and an inverse probability weights plot.
+**nawtilus** provides a procedure for the navigated weighting (NAWT) proposed by [Katsumata (2020)](https://arxiv.org/abs/2005.10998), which estimates a pre-specified parameter of interest (e.g., the average treatment effects or the average treatment effects on the treated) with the inverse probability weighting where propensity scores are estimated using estimating equations suitable for the parameter of interest. It also provides several tools for summarizing and checking the estimation results, including a covariate balance check and an inverse probability weights plot.
 
 <br>
 
@@ -24,13 +24,12 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 ## How to cite
-<font size="4"> Hiroto Katsumata. 2020. nawtilus: An R package for the Navigated Weighting. R package version 0.1.3.9000 https://github.com/hirotokatsumata/nawtilus/
+<font size="4"> Katsumata, Hiroto. 2020. nawtilus: Navigated Weighting for the Inverse Probability Weighting. R package version 0.1.3. https://CRAN.R-project.org/package=nawtilus
 </font>
 
 
 ## Installation
 
-<!--
 You can install the released version of nawtilus from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
@@ -38,9 +37,7 @@ install.packages("nawtilus")
 ```
 
 And the development version from [GitHub](https://github.com/) with:
--->
 
-You can install the development version from [GitHub](https://github.com/) with:
 ``` r
 # install.packages("devtools")
 devtools::install_github("hirotokatsumata/nawtilus")
@@ -87,6 +84,7 @@ You can summarize the results easily with `summary()`.
 ```{r summary.nawt}
 summary(fit)
 ```
+Note that the estimated coefficients except for `est` are for the propensity score estimation.
 
 Check covariate balance between the treatment and control groups before and after the NAWT with `cbcheck()`.
 ```{r cbcheck, fig.align = 'center', fig.width = 6.8, fig.height = 5.5, out.width = 500, out.height = 500 * 5.5 / 6.8}
