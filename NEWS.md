@@ -1,4 +1,7 @@
 # nawtilus 0.1.3
+### Major changes
+* This is the first CRAN released version.
+
 ### Bug fixes
 * Add @return to S3 methods.
 
