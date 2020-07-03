@@ -34,7 +34,7 @@ Inference.” Working Paper,
 
 <font size="4"> Katsumata, Hiroto. 2020. nawtilus: Navigated Weighting
 for the Inverse Probability Weighting. R package version 0.1.3.
-<https://CRAN.R-project.org/package=nawtilus> </font>
+<https://CRAN.R-project.org/package=nawtilus>. </font>
 
 ## Installation
 
@@ -60,7 +60,7 @@ of interest.
 First, load the package and make toy data.
 
 ``` r
-# Load the function
+# Load the package
 library(nawtilus)
 
 # Make toy data
@@ -155,7 +155,7 @@ plot(fit)
 
 Finally, check the weights used in propensity score estimation and
 distribution of the estimated propensity scores in the NAWT with
-`plot_onega()`.
+`plot_omega()`.
 
 ``` r
 plot_omega(fit)
