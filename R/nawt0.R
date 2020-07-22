@@ -88,12 +88,12 @@ nawt0 <- function (outcome, estimand = "ATT", method = "score",
   } else if (method == "score") {
     if (estimand == "ATE") {
       initval1 <- init(result = result.vanilla, method = method, estimand = "MO", 
-                       missing = missing, x = x, alpha = 0, N = N)
+                       missing = missing, x = x, alpha = alpha, N = N)
       result.vanilla2 <- stats::glm(formula = I(1 - missing) ~ -1 + x, 
                                     family = stats::quasibinomial, 
                                     weights = weights)
       initval2 <- init(result = result.vanilla2, method = method, estimand = "MO", 
-                       missing = 1 - missing, x = x, alpha = 0, N = N)
+                       missing = 1 - missing, x = x, alpha = alpha, N = N)
       result1 <- stats::optim(par = initval1, 
                               fn = navigatedll, 
                               gr = navigatedgradient,
