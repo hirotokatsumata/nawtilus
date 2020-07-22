@@ -103,8 +103,8 @@ navigatedV <- function (missing, ps, x, outcome, est, N, N1, weights, estimand,
                -1)
     g0mu1 <- (1 - missing) * (outcome - est0) * est.weights * N
     G0score2 <- t(x) %*% (x * c(alpha * (1 - missing) - (alpha + 1) * (1 - ps2)) * (1 - ps2)^alpha * ps2 * weights) / N
-    g0score2 <- c((1 - missing) - (1 - ps2)) * (1 - ps2)^alpha * x * weights
-    G0mu2 <- c(apply((1 - ps2) / ps2 * missing * c(outcome - est1) * x * weights * N / sumw2, 2, sum) / N, 
+    g0score2 <- c(missing - ps2) * (1 - ps2)^alpha * x * weights
+    G0mu2 <- c(-apply((1 - ps2) / ps2 * missing * c(outcome - est1) * x * weights * N / sumw2, 2, sum) / N, 
                -1)
     g0mu2 <- missing * (outcome - est1) * est.weights * N
   }  else { # ATEcombined
