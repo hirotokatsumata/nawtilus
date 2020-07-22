@@ -33,7 +33,7 @@ Inference.” Working Paper,
 [arxiv:2005.10998](https://arxiv.org/abs/2005.10998).
 
 <font size="4"> Katsumata, Hiroto. 2020. nawtilus: Navigated Weighting
-for the Inverse Probability Weighting. R package version 0.1.3.
+for the Inverse Probability Weighting. R package version 0.1.4.
 <https://CRAN.R-project.org/package=nawtilus>. </font>
 
 ## Installation
@@ -144,8 +144,7 @@ par <- oldpar # Just for adjusting plot margins
 ```
 
 Let’s compare the inverse probability weights estimated by the nawt with
-those estimated by the standard logistic regression with
-`plot()`.
+those estimated by the standard logistic regression with `plot()`.
 
 ``` r
 plot(fit)
