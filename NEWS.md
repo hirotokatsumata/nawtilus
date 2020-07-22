@@ -1,3 +1,10 @@
+# nawtilus 0.1.4
+### Minor changes
+* Simplify initial values functions (internal)
+
+### Bug fixes
+* Address problems with the ATE variance estimation (internal).
+
 # nawtilus 0.1.3
 ### Major changes
 * This is the first CRAN released version.
