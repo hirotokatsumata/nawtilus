@@ -10,28 +10,28 @@ init <- function (result, method, estimand, missing, x, alpha, N) {
   if (estimand == "ATEcombined") {
     if (method != "both") {
       weights <- init.omega(lp = result$linear.predictors, estimand = "ATEcombined", 
-                            method = method, alpha = alpha)
+                            method = method, alpha = alpha, N = N)
     } else { # both
       weights1 <- init.omega(lp = result$linear.predictors, estimand = "ATEcombined", 
-                             method = method, alpha = alpha)
+                             method = method, alpha = alpha, N = N)
       weights2 <- init.omega(lp = result$linear.predictors, estimand = "ATEcombined", 
-                             method = method, alpha = -1 / 2)
+                             method = method, alpha = -1 / 2, N = N)
       weights <- (weights1 + weights2) / 2
     }
     coef <- c(stats::glm(formula = missing ~ -1 + x, family = stats::quasibinomial, weights = weights)$coef)
   } else { # ATT and MO
     weights <- init.omega(lp = result$linear.predictors / 3, estimand = estimand, 
-                          method = method, alpha = alpha)
+                          method = method, alpha = alpha, N = N)
     result <- stats::glm(formula = missing ~ -1 + x, family = stats::quasibinomial, weights = weights)
     weights <- init.omega(lp = result$linear.predictors * 2 / 3, estimand = estimand, 
-                          method = method, alpha = alpha)
+                          method = method, alpha = alpha, N = N)
     coef <- c(stats::glm(formula = missing ~ -1 + x, family = stats::quasibinomial, weights = weights)$coef)
   }
   coef
 }
 
 ## init internal
-init.omega <- function(lp, estimand, method, alpha) {
+init.omega <- function(lp, estimand, method, alpha, N) {
   mintol <- 0.01
   maxtol <- N / 50
   if (estimand == "ATEcombined") {
