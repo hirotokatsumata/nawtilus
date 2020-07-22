@@ -29,8 +29,8 @@ cbV <- function (missing, ps, x, outcome, est, N, N1, weights,
   missing <- c(missing)
   if (estimand == "MO") {
     sumw0 <- sum((1 - missing) / (1 - ps) * weights)
-    G0cb <- t(x) %*% (x * c(1 - missing) * ps / (1 - ps) * weights) / N
-    g0cb <- c(((1 - missing) / (1 - ps)) - 1) * x * weights
+    G0cb <- t(x) %*% (-x * c(1 - missing) * ps / (1 - ps) * weights) / N
+    g0cb <- c(missing - ps) / (1 - ps) * x * weights
     G0mu <- c(apply(ps / (1 - ps) * c(1 - missing) * c(outcome - est) * x * 
                       weights * N / sumw0, 2, sum) / N, 
               -1)
@@ -54,15 +54,15 @@ cbV <- function (missing, ps, x, outcome, est, N, N1, weights,
     est1 <- sum(missing * outcome * est.weights)
     sumw1 <- sum((1 - missing) / (1 - ps1) * weights)
     sumw2 <- sum(missing / ps2 * weights)
-    G0cb1 <- t(x) %*% (x * c(1 - missing) * ps1 / (1 - ps1) * weights) / N
-    g0cb1 <- c(((1 - missing) / (1 - ps1)) - 1) * x * weights
+    G0cb1 <- t(x) %*% (-x * c(1 - missing) * ps1 / (1 - ps1) * weights) / N
+    g0cb1 <- c(missing - ps1) / (1 - ps1) * x * weights
     G0mu1 <- c(apply(ps1 / (1 - ps1) * c(1 - missing) * c(outcome - est0) * x * 
                       weights * N / sumw1, 2, sum) / N, 
                -1)
     g0mu1 <- (1 - missing) * (outcome - est0) * est.weights * N
-    G0cb2 <- t(x) %*% (x * missing * (1 - ps2) / ps2 * weights) / N
-    g0cb2 <- c((missing / ps2) - 1) * x * weights
-    G0mu2 <- c(apply((1 - ps2) / ps2 * missing * c(outcome - est1) * x * 
+    G0cb2 <- t(x) %*% (-x * missing * (1 - ps2) / ps2 * weights) / N
+    g0cb2 <- c(missing - ps2) / ps2 * x * weights
+    G0mu2 <- c(-apply((1 - ps2) / ps2 * missing * c(outcome - est1) * x * 
                       weights * N / sumw2, 2, sum) / N, 
                -1)
     g0mu2 <- missing * (outcome - est1) * est.weights * N
